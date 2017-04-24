@@ -16,6 +16,7 @@
   "author": "Eugene Tolmachev",
   "license": "Apache-2.0",
   "devDependencies": {
-    "fable-elmish": "^next"
+    "fable-elmish": "next",
+    "fable-powerpack": "next"
   }
 }
