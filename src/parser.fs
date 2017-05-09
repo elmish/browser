@@ -19,6 +19,7 @@ module State =
           unvisited = unvisited
           args = args
           value = value }
+          
   let map f { visited = visited; unvisited = unvisited; args = args; value = value } =
         { visited = visited
           unvisited = unvisited
@@ -34,14 +35,14 @@ type Parser<'a,'b> = State<'a> -> State<'b> list
 
 (* Create a custom path segment parser. Here is how it is used to define the
 `i32` and `str` parsers:
-    i32 =
-      custom "NUMBER" string.toInt
-    str =
-      custom "string" Ok
+    i32 state =
+      custom "NUMBER" (int >> Ok) state
+    str state =
+      custom "string" Ok state
 You can use it to define something like “only CSS files” like this:
     css =
       custom "CSS_FILE" <| fun segment ->
-        if string.endsWith ".css" then
+        if String.EndsWith ".css" then
           Ok segment
         else
           Error "Does not end with .css"
@@ -70,7 +71,7 @@ let str state =
     custom "string" Ok state
 
 
-(* Parse a segment of the path as an `Int`.
+(* Parse a segment of the path as an `int`.
     parsePath int location
     /alice/  ==>  None
     /bob     ==>  None
@@ -99,32 +100,31 @@ let s str : Parser<_,_> =
 // COMBINING PARSERS
 
 (* Parse a path with multiple segments.
-    parsePath (s "blog" </> int32) location
+    parsePath (s "blog" </> i32) location
     /blog/35/  ==>  Some 35
     /blog/42   ==>  Some 42
     /blog/     ==>  None
     /42/       ==>  None
-    parsePath (s "search" </> string) location
+    parsePath (s "search" </> str) location
     /search/cats/  ==>  Some "cats"
     /search/frog   ==>  Some "frog"
     /search/       ==>  None
     /cats/         ==>  None
 *)
-//(</>) : Parser a b -> Parser b c -> Parser a c
 let inline (</>) (parseBefore:Parser<_,_>) (parseAfter:Parser<_,_>) =
   fun state ->
     List.collect parseAfter (parseBefore state)
 
 
 (* Transform a path parser.
-    type Comment = { author : string, id : Int }
+    type Comment = { author : string; id : int }
     rawComment =
       s "user" </> str </> s "comments" </> i32
     comment =
-      map Comment rawComment
+      map (fun a id -> { author = a; id = id }) rawComment
     parsePath comment location
-    /user/bob/comments/42  ==>  Some { author = "bob", id = 42 }
-    /user/tom/comments/35  ==>  Some { author = "tom", id = 35 }
+    /user/bob/comments/42  ==>  Some { author = "bob"; id = 42 }
+    /user/tom/comments/35  ==>  Some { author = "tom"; id = 35 }
     /user/sam/             ==>  None
 *)
 let map (subValue:'a) (parse:Parser<'a,'b>) : Parser<'b->'c,'c> =
@@ -140,17 +140,16 @@ let map (subValue:'a) (parse:Parser<'a,'b>) : Parser<'b->'c,'c> =
 
 (* Try a bunch of different path parsers.
     type Route
-      = Search string
-      | Blog Int
-      | User string
-      | Comment string Int
+      = Search of string
+      | Blog of int
+      | User of string
+      | Comment of string*int
     route =
       oneOf
-        [ map Search  (s "search" </> string)
-          map Blog    (s "blog" </> int32)
-          map User    (s "user" </> string)
-          map Comment (s "user" </> string </> "comments" </> int32)
-        ]
+        [ map Search  (s "search" </> str)
+          map Blog    (s "blog" </> i32)
+          map User    (s "user" </> str)
+          map Comment (s "user" </> str </> "comments" </> i32) ]
     parsePath route location
     /search/cats           ==>  Some (Search "cats")
     /search/               ==>  None
@@ -166,11 +165,11 @@ let oneOf parsers state =
 
 
 (* A parser that does not consume any path segments.
-    type BlogRoute = Overview | Post int
+    type BlogRoute = Overview | Post of int
     blogRoute =
       oneOf
         [ map Overview top
-          map Post  (s "post" </> int32) ]
+          map Post  (s "post" </> i32) ]
     parsePath (s "blog" </> blogRoute) location
     /blog/         ==>  Some Overview
     /blog/post/42  ==>  Some (Post 42)
