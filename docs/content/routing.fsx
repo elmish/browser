@@ -55,11 +55,11 @@ Note that F# case constructors take all of the arguments as a tuple, while the p
 
 type Route2 = BlogDouble of int * string // needs arguments in tupled form
 
-let curry f x y = f (x,y) // convert curried into tupled form
+let curry f x y = f (x,y) // convert tupled form function of two arguments into curried form
 
-let route2 =
-    map (curry BlogDouble) (s "blog" </> i32 </> str)
+let route2 state =
+    map (curry BlogDouble) (s "blog" </> i32 </> str) state
 
 (**
- now the compiler is happy for the two arguments to be passed to the curried case constructor.
+ now the compiler is happy for the two arguments to be passed individually to the curried case constructor.
 *)

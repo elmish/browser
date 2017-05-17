@@ -10,7 +10,7 @@ open Fake.ReleaseNotesHelper
 open Fake.Git
 
 
-let gitName = "elmish-browser"
+let gitName = "browser"
 let gitOwner = "fable-elmish"
 let gitHome = sprintf "https://github.com/%s" gitOwner
 
@@ -109,7 +109,7 @@ Target "Meta" (fun _ ->
       "<PropertyGroup>"
       "<Description>Elmish extensions for Fable apps targeting web browsers</Description>"
       sprintf "<PackageProjectUrl>http://%s.github.io/%s</PackageProjectUrl>" gitOwner gitName
-      "<PackageLicenseUrl>https://raw.githubusercontent.com/fable-elmish/elmish-browser/master/LICENSE.md</PackageLicenseUrl>"
+      "<PackageLicenseUrl>https://raw.githubusercontent.com/fable-elmish/browser/master/LICENSE.md</PackageLicenseUrl>"
       "<PackageIconUrl>https://raw.githubusercontent.com/fable-elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
       sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
       "<PackageTags>fable;elmish;fsharp</PackageTags>"

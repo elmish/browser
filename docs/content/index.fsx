@@ -11,14 +11,14 @@ open Elmish
 Elmish-browser: browser extras for Elmish apps
 =======
 
-Elmish-browser implements routing and navigation for elmish apps targeting the web browsers.
+Elmish-browser implements routing and navigation for Fable apps targeting the web browsers.
 This library helps you turn URLs into nicely structured data, handle browser address change events and manipulate browser history directly.
 
 
 ## Installation
 
 ```shell
-paket add nuget fable-elmish-browser
+paket add nuget Fable.Elmish.Browser
 ```
 
 ## Routing: Combinators for parsing browser url into a route
