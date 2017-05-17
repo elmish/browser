@@ -1,16 +1,21 @@
+﻿(*** hide ***)
+#I "../../src/bin/Debug/netstandard1.6"
+#I "../../packages/Fable.Core/lib/netstandard1.6"
+#I "../../packages/Fable.Elmish/lib/netstandard1.6"
+#r "Fable.Core.dll"
+#r "Fable.Elmish.dll"
+#r "Fable.Elmish.Browser.dll"
+
+(**
+*)
 (** 
 ### UrlParser
 This port of the Elm library helps you turn URLs into nicely structured data.
-It is designed to be used with `Navigation` module to help folks create
+It is designed to be used with Browser.Navigation module to help folks create
 single-page applications (SPAs) where you manage browser navigation yourself.
 *)
 
 module Elmish.Browser.UrlParser
-
-
-(** 
-#### TYPES
-*)
 
 type State<'v> =
   { visited : string list
@@ -42,7 +47,7 @@ type Parser<'a,'b> = State<'a> -> State<'b> list
 #### PARSE SEGMENTS
 Create a custom path segment parser. You can use it to define something like “only CSS files” like this:
 <pre>
-    let css =
+    css =
       custom "CSS_FILE" <| fun segment ->
         if String.EndsWith ".css" then
           Ok segment
@@ -66,7 +71,7 @@ let custom tipe stringToSomething : Parser<_,_> =
 
 (** Parse a segment of the path as a `string`.
 <pre>
-    parse str location
+    parsePath string location
     /alice/  ==>  Some "alice"
     /bob     ==>  Some "bob"
     /42/     ==>  Some "42"
@@ -78,7 +83,7 @@ let str state =
 
 (** Parse a segment of the path as an `int`.
 <pre>
-    parse i32 location
+    parsePath int location
     /alice/  ==>  None
     /bob     ==>  None
     /42/     ==>  Some 42
@@ -112,12 +117,12 @@ let s str : Parser<_,_> =
 
 Parse a path with multiple segments.
 <pre>
-    parse (s "blog" </> i32) location
+    parsePath (s "blog" </> i32) location
     /blog/35/  ==>  Some 35
     /blog/42   ==>  Some 42
     /blog/     ==>  None
     /42/       ==>  None
-    parse (s "search" </> str) location
+    parsePath (s "search" </> str) location
     /search/cats/  ==>  Some "cats"
     /search/frog   ==>  Some "frog"
     /search/       ==>  None
@@ -136,7 +141,7 @@ let inline (</>) (parseBefore:Parser<_,_>) (parseAfter:Parser<_,_>) =
       s "user" </> str </> s "comments" </> i32
     comment =
       map (fun a id -> { author = a; id = id }) rawComment
-    parse comment location
+    parsePath comment location
     /user/bob/comments/42  ==>  Some { author = "bob"; id = 42 }
     /user/tom/comments/35  ==>  Some { author = "tom"; id = 35 }
     /user/sam/             ==>  None
@@ -166,7 +171,7 @@ let map (subValue:'a) (parse:Parser<'a,'b>) : Parser<'b->'c,'c> =
           map Blog    (s "blog" </> i32)
           map User    (s "user" </> str)
           map Comment (s "user" </> str </> "comments" </> i32) ]
-    parse route location
+    parsePath route location
     /search/cats           ==>  Some (Search "cats")
     /search/               ==>  None
     /blog/42               ==>  Some (Blog 42)
@@ -188,7 +193,7 @@ let oneOf parsers state =
       oneOf
         [ map Overview top
           map Post  (s "post" </> i32) ]
-    parse (s "blog" </> blogRoute) location
+    parsePath (s "blog" </> blogRoute) location
     /blog/         ==>  Some Overview
     /blog/post/42  ==>  Some (Post 42)
 </pre>
@@ -212,8 +217,9 @@ type QueryParser<'a,'b> = State<'a> -> State<'b> list
     route =
       oneOf
         [ map BlogList (s "blog" <?> stringParam "search")
-          map BlogPost (s "blog" </> i32) ]
-    parse route location
+          map BlogPost (s "blog" </> i32)
+        ]
+    parsePath route location
     /blog/              ==>  Some (BlogList None)
     /blog/?search=cats  ==>  Some (BlogList (Some "cats"))
     /blog/42            ==>  Some (BlogPost 42)
@@ -237,7 +243,7 @@ let customParam (key: string) (func:string option -> _) : QueryParser<_,_> =
 
 (** Parse a query parameter as a `string`.
 <pre>
-    parse (s "blog" <?> stringParam "search") location
+    parsePath (s "blog" <?> stringParam "search") location
     /blog/              ==>  Some (Overview None)
     /blog/?search=cats  ==>  Some (Overview (Some "cats"))
 </pre>
@@ -256,7 +262,7 @@ let internal intParamHelp =
 search results. You could have a `start` query parameter to say which result
 should appear first.
 <pre>
-    parse (s "results" <?> intParam "start") location
+    parsePath (s "results" <?> intParam "start") location
     /results           ==>  Some None
     /results?start=10  ==>  Some (Some 10)
 </pre>

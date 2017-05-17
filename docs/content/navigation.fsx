@@ -1,3 +1,13 @@
+﻿(*** hide ***)
+#I "../../src/bin/Debug/netstandard1.6"
+#I "../../packages/Fable.Core/lib/netstandard1.6"
+#I "../../packages/Fable.Elmish/lib/netstandard1.6"
+#r "Fable.Core.dll"
+#r "Fable.Elmish.dll"
+#r "Fable.Elmish.Browser.dll"
+
+(**
+*)
 (** Custom navigation
 ------
 This port of the Elm library is about treating the address bar as an input to your program. 
