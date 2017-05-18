@@ -14,10 +14,7 @@
 
     <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/browser/content/style_light.css" />
     <script type="text/javascript" src="https://fable-elmish.github.io/browser/content/tips.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <![endif]-->
+    <style>span.l { display: none }</style>
   </head>
   <body>
     <div class="container">
@@ -97,15 +94,23 @@ single-page applications (SPAs) where you manage browser navigation yourself.</p
 </tr>
 </table>
 <h4><a name="PARSE-SEGMENTS" class="anchor" href="#PARSE-SEGMENTS">PARSE SEGMENTS</a></h4>
-<p>Create a custom path segment parser. You can use it to define something like “only CSS files” like this:
-<pre>
-let css =
-custom "CSS_FILE" <| fun segment ->
-if String.EndsWith ".css" then
-Ok segment
-else
-Error "Does not end with .css"
-</pre></p>
+<p>Create a custom path segment parser. You can use it to define something like “only CSS files” like this:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">css</span> <span class="o">=</span>
+      <span class="i">custom</span> <span class="s">&quot;CSS_FILE&quot;</span> <span class="o">&lt;|</span> <span class="k">fun</span> <span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="i">segment</span> <span class="k">-&gt;</span>
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">String</span><span class="o">.</span><span class="i">EndsWith</span> <span class="s">&quot;.css&quot;</span> <span class="k">then</span>
+          <span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="p">Ok</span> <span onmouseout="hideTip(event, 'fs12', 20)" onmouseover="showTip(event, 'fs12', 20)" class="i">segment</span>
+        <span class="k">else</span>
+          <span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="p">Error</span> <span class="s">&quot;Does not end with .css&quot;</span>
+</code></pre></td>
+</tr>
+</table>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -125,50 +130,64 @@ Error "Does not end with .css"
         | [] <span class="k">-&gt;</span> []
         | <span class="i">next</span> <span class="o">::</span> <span class="i">rest</span> <span class="k">-&gt;</span>
             <span class="k">match</span> <span class="i">stringToSomething</span> <span class="i">next</span> <span class="k">with</span>
-            | <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">Ok</span> <span class="i">nextValue</span> <span class="k">-&gt;</span>
+            | <span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="i">Ok</span> <span class="i">nextValue</span> <span class="k">-&gt;</span>
                 [ <span class="i">State</span><span class="o">.</span><span class="i">mkState</span> (<span class="i">next</span> <span class="o">::</span> <span class="i">visited</span>) <span class="i">rest</span> <span class="i">args</span> (<span class="i">value</span> <span class="i">nextValue</span>) ]
 
-            | <span onmouseout="hideTip(event, 'fs12', 17)" onmouseover="showTip(event, 'fs12', 17)" class="i">Error</span> <span class="i">msg</span> <span class="k">-&gt;</span>
+            | <span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="i">Error</span> <span class="i">msg</span> <span class="k">-&gt;</span>
                 []
     <span class="i">inner</span>
 </code></pre></td>
 </tr>
 </table>
-<p>Parse a segment of the path as a <code>string</code>.
+<p>Parse a segment of the path as a <code>string</code>.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="i">parse</span> <span class="i">str</span> <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-parse str location
-/alice/  ==&gt;  Some "alice"
-/bob     ==&gt;  Some "bob"
-/42/     ==&gt;  Some "42"
-</pre></p>
+    /alice/  ==>  Some "alice"
+    /bob     ==>  Some "bob"
+    /42/     ==>  Some "42"
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">str</span> <span class="i">state</span> <span class="o">=</span>
-    <span class="i">custom</span> <span class="s">&quot;string&quot;</span> <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="i">Ok</span> <span class="i">state</span>
+    <span class="i">custom</span> <span class="s">&quot;string&quot;</span> <span onmouseout="hideTip(event, 'fs14', 24)" onmouseover="showTip(event, 'fs14', 24)" class="i">Ok</span> <span class="i">state</span>
 </code></pre></td>
 </tr>
 </table>
-<p>Parse a segment of the path as an <code>int</code>.
+<p>Parse a segment of the path as an <code>int</code>.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="i">parse</span> <span class="i">i32</span> <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-parse i32 location
-/alice/  ==&gt;  None
-/bob     ==&gt;  None
-/42/     ==&gt;  Some 42
-</pre></p>
+    /alice/  ==>  None
+    /bob     ==>  None
+    /42/     ==>  Some 42
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">i32</span> <span class="i">state</span> <span class="o">=</span>
-    <span class="i">custom</span> <span class="s">&quot;i32&quot;</span> (<span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 20)" onmouseover="showTip(event, 'fs14', 20)" class="i">Int32</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 21)" onmouseover="showTip(event, 'fs15', 21)" class="i">TryParse</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span class="k">function</span> <span class="k">true</span>, <span class="i">value</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs11', 22)" onmouseover="showTip(event, 'fs11', 22)" class="i">Ok</span> <span class="i">value</span> | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs12', 23)" onmouseover="showTip(event, 'fs12', 23)" class="i">Error</span> <span class="s">&quot;Can&#39;t parse int&quot;</span> ) <span class="i">state</span>
+    <span class="i">custom</span> <span class="s">&quot;i32&quot;</span> (<span onmouseout="hideTip(event, 'fs16', 25)" onmouseover="showTip(event, 'fs16', 25)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 26)" onmouseover="showTip(event, 'fs17', 26)" class="i">Int32</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">TryParse</span> <span class="o">&gt;</span><span class="o">&gt;</span> <span class="k">function</span> <span class="k">true</span>, <span class="i">value</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs14', 28)" onmouseover="showTip(event, 'fs14', 28)" class="i">Ok</span> <span class="i">value</span> | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs15', 29)" onmouseover="showTip(event, 'fs15', 29)" class="i">Error</span> <span class="s">&quot;Can&#39;t parse int&quot;</span> ) <span class="i">state</span>
 </code></pre></td>
 </tr>
 </table>
-<p>Parse a segment of the path if it matches a given string.
-<pre>
-s "blog"  // can parse /blog/
-// but not /glob/ or /42/ or anything else
-</pre></p>
+<p>Parse a segment of the path if it matches a given string.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="i">s</span> <span class="s">&quot;blog&quot;</span>  <span class="c">// can parse /blog/</span>
+              <span class="c">// but not /glob/ or /42/ or anything else</span>
+</code></pre></td>
+</tr>
+</table>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -194,41 +213,64 @@ s "blog"  // can parse /blog/
 </tr>
 </table>
 <h4><a name="COMBINING-PARSERS" class="anchor" href="#COMBINING-PARSERS">COMBINING PARSERS</a></h4>
-<p>Parse a path with multiple segments.
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="i">Parse</span> <span class="i">a</span> <span class="i">path</span> <span class="k">with</span> <span class="i">multiple</span> <span class="i">segments</span><span class="o">.</span>
+    <span class="i">parse</span> (<span class="i">s</span> <span class="s">&quot;blog&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">i32</span>) <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-parse (s "blog" </> i32) location
-/blog/35/  ==&gt;  Some 35
-/blog/42   ==&gt;  Some 42
-/blog/     ==&gt;  None
-/42/       ==&gt;  None
-parse (s "search" </> str) location
-/search/cats/  ==&gt;  Some "cats"
-/search/frog   ==&gt;  Some "frog"
-/search/       ==&gt;  None
-/cats/         ==&gt;  None
-</pre></p>
+    /blog/35/  ==>  Some 35
+    /blog/42   ==>  Some 42
+    /blog/     ==>  None
+    /42/       ==>  None
+</pre>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="i">parse</span> (<span class="i">s</span> <span class="s">&quot;search&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">str</span>) <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
+<pre>
+    /search/cats/  ==>  Some "cats"
+    /search/frog   ==>  Some "frog"
+    /search/       ==>  None
+    /cats/         ==>  None
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="k">inline</span> (<span class="o">&lt;/&gt;</span>) (<span class="i">parseBefore</span><span class="o">:</span><span class="i">Parser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span>) (<span class="i">parseAfter</span><span class="o">:</span><span class="i">Parser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span>) <span class="o">=</span>
   <span class="k">fun</span> <span class="i">state</span> <span class="k">-&gt;</span>
-    <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="i">collect</span> <span class="i">parseAfter</span> (<span class="i">parseBefore</span> <span class="i">state</span>)
+    <span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 31)" onmouseover="showTip(event, 'fs20', 31)" class="i">collect</span> <span class="i">parseAfter</span> (<span class="i">parseBefore</span> <span class="i">state</span>)
 </code></pre></td>
 </tr>
 </table>
-<p>Transform a path parser.
+<p>Transform a path parser.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="k">type</span> <span class="i">Comment</span> <span class="o">=</span> { <span class="i">author</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs4', 32)" onmouseover="showTip(event, 'fs4', 32)" class="i">string</span>; <span onmouseout="hideTip(event, 'fs21', 33)" onmouseover="showTip(event, 'fs21', 33)" class="i">id</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs22', 34)" onmouseover="showTip(event, 'fs22', 34)" class="i">int</span> }
+    <span class="i">rawComment</span> <span class="o">=</span>
+      <span class="i">s</span> <span class="s">&quot;user&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">str</span> <span class="o">&lt;/&gt;</span> <span class="i">s</span> <span class="s">&quot;comments&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">i32</span>
+    <span class="i">comment</span> <span class="o">=</span>
+      <span class="i">map</span> (<span class="k">fun</span> <span class="i">a</span> <span onmouseout="hideTip(event, 'fs21', 35)" onmouseover="showTip(event, 'fs21', 35)" class="i">id</span> <span class="k">-&gt;</span> { <span class="i">author</span> <span class="o">=</span> <span class="i">a</span>; <span onmouseout="hideTip(event, 'fs21', 36)" onmouseover="showTip(event, 'fs21', 36)" class="i">id</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 37)" onmouseover="showTip(event, 'fs21', 37)" class="i">id</span> }) <span class="i">rawComment</span>
+    <span class="i">parse</span> <span class="i">comment</span> <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-type Comment = { author : string; id : int }
-rawComment =
-s "user" </> str </> s "comments" </> i32
-comment =
-map (fun a id -&gt; { author = a; id = id }) rawComment
-parse comment location
-/user/bob/comments/42  ==&gt;  Some { author = "bob"; id = 42 }
-/user/tom/comments/35  ==&gt;  Some { author = "tom"; id = 35 }
-/user/sam/             ==&gt;  None
-</pre></p>
+    /user/bob/comments/42  ==>  Some { author = "bob"; id = 42 }
+    /user/tom/comments/35  ==>  Some { author = "tom"; id = 35 }
+    /user/sam/             ==>  None
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -241,7 +283,7 @@ parse comment location
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">map</span> (<span class="i">subValue</span><span class="o">:</span><span class="o">&#39;</span><span class="i">a</span>) (<span class="i">parse</span><span class="o">:</span><span class="i">Parser</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span>,<span class="o">&#39;</span><span class="i">b</span><span class="o">&gt;</span>) <span class="o">:</span> <span class="i">Parser</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">b</span><span class="k">-&gt;</span><span class="o">&#39;</span><span class="i">c</span>,<span class="o">&#39;</span><span class="i">c</span><span class="o">&gt;</span> <span class="o">=</span>
     <span class="k">let</span> <span class="i">inner</span> { <span class="i">visited</span> <span class="o">=</span> <span class="i">visited</span>; <span class="i">unvisited</span> <span class="o">=</span> <span class="i">unvisited</span>; <span class="i">args</span> <span class="o">=</span> <span class="i">args</span>; <span class="i">value</span> <span class="o">=</span> <span class="i">value</span> } <span class="o">=</span>
-        <span onmouseout="hideTip(event, 'fs16', 26)" onmouseover="showTip(event, 'fs16', 26)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="i">map</span> (<span class="i">State</span><span class="o">.</span><span class="i">map</span> <span class="i">value</span>) 
+        <span onmouseout="hideTip(event, 'fs19', 38)" onmouseover="showTip(event, 'fs19', 38)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 39)" onmouseover="showTip(event, 'fs23', 39)" class="i">map</span> (<span class="i">State</span><span class="o">.</span><span class="i">map</span> <span class="i">value</span>) 
         <span class="o">&lt;|</span> <span class="i">parse</span> { <span class="i">visited</span> <span class="o">=</span> <span class="i">visited</span>
                    <span class="i">unvisited</span> <span class="o">=</span> <span class="i">unvisited</span>
                    <span class="i">args</span> <span class="o">=</span> <span class="i">args</span>
@@ -251,48 +293,74 @@ parse comment location
 </code></pre></td>
 </tr>
 </table>
-<p>Try a bunch of different path parsers.
+<p>Try a bunch of different path parsers.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="k">type</span> <span class="i">Route</span>
+      <span class="o">=</span> <span class="i">Search</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs4', 40)" onmouseover="showTip(event, 'fs4', 40)" class="i">string</span>
+      | <span class="i">Blog</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs22', 41)" onmouseover="showTip(event, 'fs22', 41)" class="i">int</span>
+      | <span class="i">User</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs4', 42)" onmouseover="showTip(event, 'fs4', 42)" class="i">string</span>
+      | <span class="i">Comment</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs4', 43)" onmouseover="showTip(event, 'fs4', 43)" class="i">string</span><span class="o">*</span><span onmouseout="hideTip(event, 'fs22', 44)" onmouseover="showTip(event, 'fs22', 44)" class="i">int</span>
+    <span class="i">route</span> <span class="o">=</span>
+      <span class="i">oneOf</span>
+        [ <span class="i">map</span> <span class="i">Search</span>  (<span class="i">s</span> <span class="s">&quot;search&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">str</span>)
+          <span class="i">map</span> <span class="i">Blog</span>    (<span class="i">s</span> <span class="s">&quot;blog&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">i32</span>)
+          <span class="i">map</span> <span class="i">User</span>    (<span class="i">s</span> <span class="s">&quot;user&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">str</span>)
+          <span class="i">map</span> <span class="i">Comment</span> (<span class="i">s</span> <span class="s">&quot;user&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">str</span> <span class="o">&lt;/&gt;</span> <span class="s">&quot;comments&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">i32</span>) ]
+    <span class="i">parse</span> <span class="i">route</span> <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-type Route
-= Search of string
-| Blog of int
-| User of string
-| Comment of string*int
-route =
-oneOf
-[ map Search  (s "search" </> str)
-map Blog    (s "blog" </> i32)
-map User    (s "user" </> str)
-map Comment (s "user" </> str </> "comments" </> i32) ]
-parse route location
-/search/cats           ==&gt;  Some (Search "cats")
-/search/               ==&gt;  None
-/blog/42               ==&gt;  Some (Blog 42)
-/blog/cats             ==&gt;  None
-/user/sam/             ==&gt;  Some (User "sam")
-/user/bob/comments/42  ==&gt;  Some (Comment "bob" 42)
-/user/tom/comments/35  ==&gt;  Some (Comment "tom" 35)
-/user/                 ==&gt;  None
-</pre></p>
+    /search/cats           ==>  Some (Search "cats")
+    /search/               ==>  None
+    /blog/42               ==>  Some (Blog 42)
+    /blog/cats             ==>  None
+    /user/sam/             ==>  Some (User "sam")
+    /user/bob/comments/42  ==>  Some (Comment "bob" 42)
+    /user/tom/comments/35  ==>  Some (Comment "tom" 35)
+    /user/                 ==>  None
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">oneOf</span> <span class="i">parsers</span> <span class="i">state</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 29)" onmouseover="showTip(event, 'fs17', 29)" class="i">collect</span> (<span class="k">fun</span> <span class="i">parser</span> <span class="k">-&gt;</span> <span class="i">parser</span> <span class="i">state</span>) <span class="i">parsers</span>
+    <span onmouseout="hideTip(event, 'fs19', 45)" onmouseover="showTip(event, 'fs19', 45)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 46)" onmouseover="showTip(event, 'fs20', 46)" class="i">collect</span> (<span class="k">fun</span> <span class="i">parser</span> <span class="k">-&gt;</span> <span class="i">parser</span> <span class="i">state</span>) <span class="i">parsers</span>
 </code></pre></td>
 </tr>
 </table>
-<p>A parser that does not consume any path segments.
+<p>A parser that does not consume any path segments.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="k">type</span> <span class="i">BlogRoute</span> <span class="o">=</span> <span class="i">Overview</span> | <span class="i">Post</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs22', 47)" onmouseover="showTip(event, 'fs22', 47)" class="i">int</span>
+    <span class="i">blogRoute</span> <span class="o">=</span>
+      <span class="i">oneOf</span>
+        [ <span class="i">map</span> <span class="i">Overview</span> <span class="i">top</span>
+          <span class="i">map</span> <span class="i">Post</span>  (<span class="i">s</span> <span class="s">&quot;post&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">i32</span>) ]
+    <span class="i">parse</span> (<span class="i">s</span> <span class="s">&quot;blog&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">blogRoute</span>) <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-type BlogRoute = Overview | Post of int
-blogRoute =
-oneOf
-[ map Overview top
-map Post  (s "post" </> i32) ]
-parse (s "blog" </> blogRoute) location
-/blog/         ==&gt;  Some Overview
-/blog/post/42  ==&gt;  Some (Post 42)
-</pre></p>
+    /blog/         ==>  Some Overview
+    /blog/post/42  ==>  Some (Post 42)
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -302,59 +370,77 @@ parse (s "blog" </> blogRoute) location
 </tr>
 </table>
 <h4><a name="QUERY-PARAMETERS" class="anchor" href="#QUERY-PARAMETERS">QUERY PARAMETERS</a></h4>
+<p>Turn query parameters like <code>?name=tom&amp;age=42</code> into nice data.</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="c">/// Turn query parameters like `?name=tom&amp;age=42` into nice data.</span>
-<span class="k">type</span> <span class="i">QueryParser</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span>,<span class="o">&#39;</span><span class="i">b</span><span class="o">&gt;</span> <span class="o">=</span> <span class="i">State</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span> <span class="k">-&gt;</span> <span class="i">State</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">b</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs5', 30)" onmouseover="showTip(event, 'fs5', 30)" class="i">list</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">QueryParser</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span>,<span class="o">&#39;</span><span class="i">b</span><span class="o">&gt;</span> <span class="o">=</span> <span class="i">State</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">a</span><span class="o">&gt;</span> <span class="k">-&gt;</span> <span class="i">State</span><span class="o">&lt;</span><span class="o">&#39;</span><span class="i">b</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs5', 48)" onmouseover="showTip(event, 'fs5', 48)" class="i">list</span>
 </code></pre></td>
 </tr>
 </table>
-<p>Parse some query parameters.
+<p>Parse some query parameters.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="k">type</span> <span class="i">Route</span> <span class="o">=</span> <span class="i">BlogList</span> (<span onmouseout="hideTip(event, 'fs24', 49)" onmouseover="showTip(event, 'fs24', 49)" class="i">Option</span> <span onmouseout="hideTip(event, 'fs4', 50)" onmouseover="showTip(event, 'fs4', 50)" class="i">string</span>) | <span class="i">BlogPost</span> <span class="i">Int</span>
+    <span class="i">route</span> <span class="o">=</span>
+      <span class="i">oneOf</span>
+        [ <span class="i">map</span> <span class="i">BlogList</span> (<span class="i">s</span> <span class="s">&quot;blog&quot;</span> <span class="o">&lt;?&gt;</span> <span class="i">stringParam</span> <span class="s">&quot;search&quot;</span>)
+          <span class="i">map</span> <span class="i">BlogPost</span> (<span class="i">s</span> <span class="s">&quot;blog&quot;</span> <span class="o">&lt;/&gt;</span> <span class="i">i32</span>) ]
+    <span class="i">parse</span> <span class="i">route</span> <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-type Route = BlogList (Option string) | BlogPost Int
-route =
-oneOf
-[ map BlogList (s "blog" <?> stringParam "search")
-map BlogPost (s "blog" </> i32) ]
-parse route location
-/blog/              ==&gt;  Some (BlogList None)
-/blog/?search=cats  ==&gt;  Some (BlogList (Some "cats"))
-/blog/42            ==&gt;  Some (BlogPost 42)
-</pre></p>
+    /blog/              ==>  Some (BlogList None)
+    /blog/?search=cats  ==>  Some (BlogList (Some "cats"))
+    /blog/42            ==>  Some (BlogPost 42)
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="k">inline</span> (<span class="o">&lt;?&gt;</span>) (<span class="i">parser</span><span class="o">:</span><span class="i">Parser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span>) (<span class="i">queryParser</span><span class="o">:</span><span class="i">QueryParser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span>) <span class="o">:</span> <span class="i">Parser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span> <span class="o">=</span>
     <span class="k">fun</span> <span class="i">state</span> <span class="k">-&gt;</span>
-        <span onmouseout="hideTip(event, 'fs16', 31)" onmouseover="showTip(event, 'fs16', 31)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 32)" onmouseover="showTip(event, 'fs17', 32)" class="i">collect</span> <span class="i">queryParser</span> (<span class="i">parser</span> <span class="i">state</span>)
+        <span onmouseout="hideTip(event, 'fs19', 51)" onmouseover="showTip(event, 'fs19', 51)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 52)" onmouseover="showTip(event, 'fs20', 52)" class="i">collect</span> <span class="i">queryParser</span> (<span class="i">parser</span> <span class="i">state</span>)
 </code></pre></td>
 </tr>
 </table>
-<p>Create a custom query parser. You could create parsers like these:
-<pre>
-val jsonParam : string -&gt; Decoder a -&gt; QueryParser (Option a -&gt; b) b
-val enumParam : string -&gt; Map<string,a> -&gt; QueryParser (Option a -&gt; b) b
-</pre></p>
+<p>Create a custom query parser. You could create parsers like these:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="k">val</span> <span class="i">jsonParam</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs4', 53)" onmouseover="showTip(event, 'fs4', 53)" class="i">string</span> <span class="k">-&gt;</span> <span class="i">Decoder</span> <span class="i">a</span> <span class="k">-&gt;</span> <span class="i">QueryParser</span> (<span onmouseout="hideTip(event, 'fs24', 54)" onmouseover="showTip(event, 'fs24', 54)" class="i">Option</span> <span class="i">a</span> <span class="k">-&gt;</span> <span class="i">b</span>) <span class="i">b</span>
+    <span class="k">val</span> <span class="i">enumParam</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs4', 55)" onmouseover="showTip(event, 'fs4', 55)" class="i">string</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs6', 56)" onmouseover="showTip(event, 'fs6', 56)" class="i">Map</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs4', 57)" onmouseover="showTip(event, 'fs4', 57)" class="i">string</span>,<span class="i">a</span><span class="o">&gt;</span> <span class="k">-&gt;</span> <span class="i">QueryParser</span> (<span onmouseout="hideTip(event, 'fs24', 58)" onmouseover="showTip(event, 'fs24', 58)" class="i">Option</span> <span class="i">a</span> <span class="k">-&gt;</span> <span class="i">b</span>) <span class="i">b</span>
+</code></pre></td>
+</tr>
+</table>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
 <span class="l">4: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">customParam</span> (<span class="i">key</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs4', 33)" onmouseover="showTip(event, 'fs4', 33)" class="i">string</span>) (<span class="i">func</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 34)" onmouseover="showTip(event, 'fs4', 34)" class="i">string</span> <span onmouseout="hideTip(event, 'fs19', 35)" onmouseover="showTip(event, 'fs19', 35)" class="i">option</span> <span class="k">-&gt;</span> _) <span class="o">:</span> <span class="i">QueryParser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span> <span class="o">=</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">customParam</span> (<span class="i">key</span><span class="o">:</span> <span onmouseout="hideTip(event, 'fs4', 59)" onmouseover="showTip(event, 'fs4', 59)" class="i">string</span>) (<span class="i">func</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 60)" onmouseover="showTip(event, 'fs4', 60)" class="i">string</span> <span onmouseout="hideTip(event, 'fs25', 61)" onmouseover="showTip(event, 'fs25', 61)" class="i">option</span> <span class="k">-&gt;</span> _) <span class="o">:</span> <span class="i">QueryParser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span> <span class="o">=</span>
     <span class="k">let</span> <span class="i">inner</span> { <span class="i">visited</span> <span class="o">=</span> <span class="i">visited</span>; <span class="i">unvisited</span> <span class="o">=</span> <span class="i">unvisited</span>; <span class="i">args</span> <span class="o">=</span> <span class="i">args</span>; <span class="i">value</span> <span class="o">=</span> <span class="i">value</span> } <span class="o">=</span>
-        [ <span class="i">State</span><span class="o">.</span><span class="i">mkState</span> <span class="i">visited</span> <span class="i">unvisited</span> <span class="i">args</span> (<span class="i">value</span> (<span class="i">func</span> (<span onmouseout="hideTip(event, 'fs6', 36)" onmouseover="showTip(event, 'fs6', 36)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs20', 37)" onmouseover="showTip(event, 'fs20', 37)" class="i">tryFind</span> <span class="i">key</span> <span class="i">args</span>))) ]
+        [ <span class="i">State</span><span class="o">.</span><span class="i">mkState</span> <span class="i">visited</span> <span class="i">unvisited</span> <span class="i">args</span> (<span class="i">value</span> (<span class="i">func</span> (<span onmouseout="hideTip(event, 'fs6', 62)" onmouseover="showTip(event, 'fs6', 62)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 63)" onmouseover="showTip(event, 'fs26', 63)" class="i">tryFind</span> <span class="i">key</span> <span class="i">args</span>))) ]
     <span class="i">inner</span>
 </code></pre></td>
 </tr>
 </table>
-<p>Parse a query parameter as a <code>string</code>.
+<p>Parse a query parameter as a <code>string</code>.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="i">parse</span> (<span class="i">s</span> <span class="s">&quot;blog&quot;</span> <span class="o">&lt;?&gt;</span> <span class="i">stringParam</span> <span class="s">&quot;search&quot;</span>) <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-parse (s "blog" <?> stringParam "search") location
-/blog/              ==&gt;  Some (Overview None)
-/blog/?search=cats  ==&gt;  Some (Overview (Some "cats"))
-</pre></p>
+    /blog/              ==>  Some (Overview None)
+    /blog/?search=cats  ==>  Some (Overview (Some "cats"))
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -366,25 +452,30 @@ parse (s "blog" <?> stringParam "search") location
 <span class="l">9: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">stringParam</span> <span class="i">name</span> <span class="o">=</span>
-    <span class="i">customParam</span> <span class="i">name</span> <span onmouseout="hideTip(event, 'fs21', 38)" onmouseover="showTip(event, 'fs21', 38)" class="i">id</span>
+    <span class="i">customParam</span> <span class="i">name</span> <span onmouseout="hideTip(event, 'fs21', 64)" onmouseover="showTip(event, 'fs21', 64)" class="i">id</span>
 
 <span class="k">let</span> <span class="k">internal</span> <span class="i">intParamHelp</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs22', 39)" onmouseover="showTip(event, 'fs22', 39)" class="i">Option</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs23', 40)" onmouseover="showTip(event, 'fs23', 40)" class="i">bind</span> 
+    <span onmouseout="hideTip(event, 'fs24', 65)" onmouseover="showTip(event, 'fs24', 65)" class="i">Option</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 66)" onmouseover="showTip(event, 'fs27', 66)" class="i">bind</span> 
         (<span class="k">fun</span> <span class="i">value</span> <span class="k">-&gt;</span>
-            <span class="k">match</span> <span onmouseout="hideTip(event, 'fs13', 41)" onmouseover="showTip(event, 'fs13', 41)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 42)" onmouseover="showTip(event, 'fs14', 42)" class="i">Int32</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs15', 43)" onmouseover="showTip(event, 'fs15', 43)" class="i">TryParse</span> <span class="i">value</span> <span class="k">with</span>
-            | (<span class="k">true</span>,<span class="i">x</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs24', 44)" onmouseover="showTip(event, 'fs24', 44)" class="i">Some</span> <span class="i">x</span>
-            | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 45)" onmouseover="showTip(event, 'fs25', 45)" class="i">None</span>)
+            <span class="k">match</span> <span onmouseout="hideTip(event, 'fs16', 67)" onmouseover="showTip(event, 'fs16', 67)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs17', 68)" onmouseover="showTip(event, 'fs17', 68)" class="i">Int32</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs18', 69)" onmouseover="showTip(event, 'fs18', 69)" class="i">TryParse</span> <span class="i">value</span> <span class="k">with</span>
+            | (<span class="k">true</span>,<span class="i">x</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs28', 70)" onmouseover="showTip(event, 'fs28', 70)" class="i">Some</span> <span class="i">x</span>
+            | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs29', 71)" onmouseover="showTip(event, 'fs29', 71)" class="i">None</span>)
 </code></pre></td>
 </tr>
 </table>
-<p>Parse a query parameter as an <code>Int</code>. Option you want to show paginated
+<p>Parse a query parameter as an <code>int</code>. Option you want to show paginated
 search results. You could have a <code>start</code> query parameter to say which result
-should appear first.
+should appear first.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">    <span class="i">parse</span> (<span class="i">s</span> <span class="s">&quot;results&quot;</span> <span class="o">&lt;?&gt;</span> <span class="i">intParam</span> <span class="s">&quot;start&quot;</span>) <span class="i">location</span>
+</code></pre></td>
+</tr>
+</table>
 <pre>
-parse (s "results" <?> intParam "start") location
-/results           ==&gt;  Some None
-/results?start=10  ==&gt;  Some (Some 10)
-</pre></p>
+    /results           ==>  Some None
+    /results?start=10  ==>  Some (Some 10)
+</pre>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -446,18 +537,18 @@ parse (s "results" <?> intParam "start") location
 <span class="k">let</span> <span class="k">rec</span> <span class="k">internal</span> <span class="i">parseHelp</span> <span class="i">states</span> <span class="o">=</span>
     <span class="k">match</span> <span class="i">states</span> <span class="k">with</span>
     | [] <span class="k">-&gt;</span>
-        <span onmouseout="hideTip(event, 'fs25', 46)" onmouseover="showTip(event, 'fs25', 46)" class="i">None</span>
+        <span onmouseout="hideTip(event, 'fs29', 72)" onmouseover="showTip(event, 'fs29', 72)" class="i">None</span>
     | <span class="i">state</span> <span class="o">::</span> <span class="i">rest</span> <span class="k">-&gt;</span>
         <span class="k">match</span> <span class="i">state</span><span class="o">.</span><span class="i">unvisited</span> <span class="k">with</span>
         | [] <span class="k">-&gt;</span>
-            <span onmouseout="hideTip(event, 'fs24', 47)" onmouseover="showTip(event, 'fs24', 47)" class="i">Some</span> <span class="i">state</span><span class="o">.</span><span class="i">value</span>
+            <span onmouseout="hideTip(event, 'fs28', 73)" onmouseover="showTip(event, 'fs28', 73)" class="i">Some</span> <span class="i">state</span><span class="o">.</span><span class="i">value</span>
         | [<span class="s">&quot;&quot;</span>] <span class="k">-&gt;</span>
-            <span onmouseout="hideTip(event, 'fs24', 48)" onmouseover="showTip(event, 'fs24', 48)" class="i">Some</span> <span class="i">state</span><span class="o">.</span><span class="i">value</span>
+            <span onmouseout="hideTip(event, 'fs28', 74)" onmouseover="showTip(event, 'fs28', 74)" class="i">Some</span> <span class="i">state</span><span class="o">.</span><span class="i">value</span>
         | _ <span class="k">-&gt;</span>
             <span class="i">parseHelp</span> <span class="i">rest</span>
 
-<span class="k">let</span> <span class="k">internal</span> <span class="i">splitUrl</span> (<span class="i">url</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 49)" onmouseover="showTip(event, 'fs4', 49)" class="i">string</span>) <span class="o">=</span>
-    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs16', 50)" onmouseover="showTip(event, 'fs16', 50)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs26', 51)" onmouseover="showTip(event, 'fs26', 51)" class="i">ofArray</span> <span class="o">&lt;|</span> <span class="i">url</span><span class="o">.</span><span class="i">Split</span>([|<span class="s">&#39;/&#39;</span>|]) <span class="k">with</span>
+<span class="k">let</span> <span class="k">internal</span> <span class="i">splitUrl</span> (<span class="i">url</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 75)" onmouseover="showTip(event, 'fs4', 75)" class="i">string</span>) <span class="o">=</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs19', 76)" onmouseover="showTip(event, 'fs19', 76)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 77)" onmouseover="showTip(event, 'fs30', 77)" class="i">ofArray</span> <span class="o">&lt;|</span> <span class="i">url</span><span class="o">.</span><span class="i">Split</span>([|<span class="s">&#39;/&#39;</span>|]) <span class="k">with</span>
     | <span class="s">&quot;&quot;</span> <span class="o">::</span> <span class="i">segments</span> <span class="k">-&gt;</span>
         <span class="i">segments</span>
     | <span class="i">segments</span> <span class="k">-&gt;</span>
@@ -468,26 +559,26 @@ parse (s "results" <?> intParam "start") location
     { <span class="i">visited</span> <span class="o">=</span> []
       <span class="i">unvisited</span> <span class="o">=</span> <span class="i">splitUrl</span> <span class="i">url</span>
       <span class="i">args</span> <span class="o">=</span> <span class="i">args</span>
-      <span class="i">value</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 52)" onmouseover="showTip(event, 'fs21', 52)" class="i">id</span> }
+      <span class="i">value</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs21', 78)" onmouseover="showTip(event, 'fs21', 78)" class="i">id</span> }
     <span class="o">|&gt;</span> <span class="i">parser</span>
     <span class="o">|&gt;</span> <span class="i">parseHelp</span>
 
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs27', 53)" onmouseover="showTip(event, 'fs27', 53)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 54)" onmouseover="showTip(event, 'fs28', 54)" class="i">Import</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs31', 79)" onmouseover="showTip(event, 'fs31', 79)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 80)" onmouseover="showTip(event, 'fs32', 80)" class="i">Import</span>
 
-<span class="k">let</span> <span class="k">internal</span> <span class="i">toKeyValuePair</span> (<span class="i">segment</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 55)" onmouseover="showTip(event, 'fs4', 55)" class="i">string</span>) <span class="o">=</span>
+<span class="k">let</span> <span class="k">internal</span> <span class="i">toKeyValuePair</span> (<span class="i">segment</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 81)" onmouseover="showTip(event, 'fs4', 81)" class="i">string</span>) <span class="o">=</span>
     <span class="k">match</span> <span class="i">segment</span><span class="o">.</span><span class="i">Split</span>(<span class="s">&#39;=&#39;</span>) <span class="k">with</span>
     | [| <span class="i">key</span>; <span class="i">value</span> |] <span class="k">-&gt;</span>
-        <span onmouseout="hideTip(event, 'fs22', 56)" onmouseover="showTip(event, 'fs22', 56)" class="i">Option</span><span class="o">.</span><span class="i">tuple</span> (<span onmouseout="hideTip(event, 'fs22', 57)" onmouseover="showTip(event, 'fs22', 57)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">key</span>) (<span onmouseout="hideTip(event, 'fs22', 58)" onmouseover="showTip(event, 'fs22', 58)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">value</span>)
-    | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs25', 59)" onmouseover="showTip(event, 'fs25', 59)" class="i">None</span>
+        <span onmouseout="hideTip(event, 'fs24', 82)" onmouseover="showTip(event, 'fs24', 82)" class="i">Option</span><span class="o">.</span><span class="i">tuple</span> (<span onmouseout="hideTip(event, 'fs24', 83)" onmouseover="showTip(event, 'fs24', 83)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">key</span>) (<span onmouseout="hideTip(event, 'fs24', 84)" onmouseover="showTip(event, 'fs24', 84)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">value</span>)
+    | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs29', 85)" onmouseover="showTip(event, 'fs29', 85)" class="i">None</span>
 
 
-<span class="k">let</span> <span class="k">internal</span> <span class="i">parseParams</span> (<span class="i">querystring</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 60)" onmouseover="showTip(event, 'fs4', 60)" class="i">string</span>) <span class="o">=</span>
+<span class="k">let</span> <span class="k">internal</span> <span class="i">parseParams</span> (<span class="i">querystring</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 86)" onmouseover="showTip(event, 'fs4', 86)" class="i">string</span>) <span class="o">=</span>
     <span class="i">querystring</span><span class="o">.</span><span class="i">Substring</span>(<span class="n">1</span>)<span class="o">.</span><span class="i">Split</span>(<span class="s">&#39;&amp;&#39;</span>)
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs29', 61)" onmouseover="showTip(event, 'fs29', 61)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 62)" onmouseover="showTip(event, 'fs30', 62)" class="i">map</span> <span class="i">toKeyValuePair</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs29', 63)" onmouseover="showTip(event, 'fs29', 63)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 64)" onmouseover="showTip(event, 'fs31', 64)" class="i">choose</span> <span onmouseout="hideTip(event, 'fs21', 65)" onmouseover="showTip(event, 'fs21', 65)" class="i">id</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 66)" onmouseover="showTip(event, 'fs6', 66)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 67)" onmouseover="showTip(event, 'fs32', 67)" class="i">ofSeq</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 87)" onmouseover="showTip(event, 'fs33', 87)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 88)" onmouseover="showTip(event, 'fs34', 88)" class="i">map</span> <span class="i">toKeyValuePair</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs33', 89)" onmouseover="showTip(event, 'fs33', 89)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 90)" onmouseover="showTip(event, 'fs35', 90)" class="i">choose</span> <span onmouseout="hideTip(event, 'fs21', 91)" onmouseover="showTip(event, 'fs21', 91)" class="i">id</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 92)" onmouseover="showTip(event, 'fs6', 92)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs36', 93)" onmouseover="showTip(event, 'fs36', 93)" class="i">ofSeq</span>
 
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs27', 68)" onmouseover="showTip(event, 'fs27', 68)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs28', 69)" onmouseover="showTip(event, 'fs28', 69)" class="i">Import</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 70)" onmouseover="showTip(event, 'fs33', 70)" class="i">Browser</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs31', 94)" onmouseover="showTip(event, 'fs31', 94)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 95)" onmouseover="showTip(event, 'fs32', 95)" class="i">Import</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs37', 96)" onmouseover="showTip(event, 'fs37', 96)" class="i">Browser</span>
 </code></pre></td>
 </tr>
 </table>
@@ -508,7 +599,7 @@ ignores the normal path entirely.</p>
 <span class="l">2: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">parseHash</span> (<span class="i">parser</span><span class="o">:</span><span class="i">Parser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span>) (<span class="i">location</span><span class="o">:</span><span class="i">Location</span>) <span class="o">=</span>
-    <span class="i">parse</span> <span class="i">parser</span> (<span class="i">location</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 71)" onmouseover="showTip(event, 'fs34', 71)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span> <span class="n">1</span>) (<span class="i">parseParams</span> <span class="i">location</span><span class="o">.</span><span class="i">search</span>)
+    <span class="i">parse</span> <span class="i">parser</span> (<span class="i">location</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 97)" onmouseover="showTip(event, 'fs38', 97)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span> <span class="n">1</span>) (<span class="i">parseParams</span> <span class="i">location</span><span class="o">.</span><span class="i">search</span>)
 </code></pre></td>
 </tr>
 </table>
@@ -523,30 +614,34 @@ ignores the normal path entirely.</p>
 <div class="tip" id="fs8">Multiple items<br />type CompilationRepresentationAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : flags:CompilationRepresentationFlags -&gt; CompilationRepresentationAttribute<br />&#160;&#160;member Flags : CompilationRepresentationFlags<br /><br />Full name: Microsoft.FSharp.Core.CompilationRepresentationAttribute<br /><br />--------------------<br />new : flags:CompilationRepresentationFlags -&gt; CompilationRepresentationAttribute</div>
 <div class="tip" id="fs9">type CompilationRepresentationFlags =<br />&#160;&#160;|  None  =  0<br />&#160;&#160;|  Static  =  1<br />&#160;&#160;|  Instance  =  2<br />&#160;&#160;|  ModuleSuffix  =  4<br />&#160;&#160;|  UseNullAsTrueValue  =  8<br />&#160;&#160;|  Event  =  16<br /><br />Full name: Microsoft.FSharp.Core.CompilationRepresentationFlags</div>
 <div class="tip" id="fs10">CompilationRepresentationFlags.ModuleSuffix: CompilationRepresentationFlags = 4</div>
-<div class="tip" id="fs11">union case Result.Ok: ResultValue: &#39;T -&gt; Result&lt;&#39;T,&#39;TError&gt;</div>
-<div class="tip" id="fs12">union case Result.Error: ErrorValue: &#39;TError -&gt; Result&lt;&#39;T,&#39;TError&gt;</div>
-<div class="tip" id="fs13">namespace System</div>
-<div class="tip" id="fs14">type Int32 =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Equals : obj:obj -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member GetTypeCode : unit -&gt; TypeCode<br />&#160;&#160;&#160;&#160;member ToString : unit -&gt; string + 3 overloads<br />&#160;&#160;&#160;&#160;static val MaxValue : int<br />&#160;&#160;&#160;&#160;static val MinValue : int<br />&#160;&#160;&#160;&#160;static member Parse : s:string -&gt; int + 3 overloads<br />&#160;&#160;&#160;&#160;static member TryParse : s:string * result:int -&gt; bool + 1 overload<br />&#160;&#160;end<br /><br />Full name: System.Int32</div>
-<div class="tip" id="fs15">System.Int32.TryParse(s: string, result: byref&lt;int&gt;) : bool<br />System.Int32.TryParse(s: string, style: System.Globalization.NumberStyles, provider: System.IFormatProvider, result: byref&lt;int&gt;) : bool</div>
-<div class="tip" id="fs16">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
-<div class="tip" id="fs17">val collect : mapping:(&#39;T -&gt; &#39;U list) -&gt; list:&#39;T list -&gt; &#39;U list<br /><br />Full name: Microsoft.FSharp.Collections.List.collect</div>
-<div class="tip" id="fs18">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><br />Full name: Microsoft.FSharp.Collections.List.map</div>
-<div class="tip" id="fs19">type &#39;T option = Option&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.option&lt;_&gt;</div>
-<div class="tip" id="fs20">val tryFind : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T option (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.tryFind</div>
+<div class="tip" id="fs11">val css : obj<br /><br />Full name: parser.css</div>
+<div class="tip" id="fs12">val segment : obj</div>
+<div class="tip" id="fs13">module String<br /><br />from Microsoft.FSharp.Core</div>
+<div class="tip" id="fs14">union case Result.Ok: ResultValue: &#39;T -&gt; Result&lt;&#39;T,&#39;TError&gt;</div>
+<div class="tip" id="fs15">union case Result.Error: ErrorValue: &#39;TError -&gt; Result&lt;&#39;T,&#39;TError&gt;</div>
+<div class="tip" id="fs16">namespace System</div>
+<div class="tip" id="fs17">type Int32 =<br />&#160;&#160;struct<br />&#160;&#160;&#160;&#160;member CompareTo : value:obj -&gt; int + 1 overload<br />&#160;&#160;&#160;&#160;member Equals : obj:obj -&gt; bool + 1 overload<br />&#160;&#160;&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;&#160;&#160;member GetTypeCode : unit -&gt; TypeCode<br />&#160;&#160;&#160;&#160;member ToString : unit -&gt; string + 3 overloads<br />&#160;&#160;&#160;&#160;static val MaxValue : int<br />&#160;&#160;&#160;&#160;static val MinValue : int<br />&#160;&#160;&#160;&#160;static member Parse : s:string -&gt; int + 3 overloads<br />&#160;&#160;&#160;&#160;static member TryParse : s:string * result:int -&gt; bool + 1 overload<br />&#160;&#160;end<br /><br />Full name: System.Int32</div>
+<div class="tip" id="fs18">System.Int32.TryParse(s: string, result: byref&lt;int&gt;) : bool<br />System.Int32.TryParse(s: string, style: System.Globalization.NumberStyles, provider: System.IFormatProvider, result: byref&lt;int&gt;) : bool</div>
+<div class="tip" id="fs19">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member GetSlice : startIndex:int option * endIndex:int option -&gt; &#39;T list<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
+<div class="tip" id="fs20">val collect : mapping:(&#39;T -&gt; &#39;U list) -&gt; list:&#39;T list -&gt; &#39;U list<br /><br />Full name: Microsoft.FSharp.Collections.List.collect</div>
 <div class="tip" id="fs21">val id : x:&#39;T -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.id</div>
-<div class="tip" id="fs22">module Option<br /><br />from Microsoft.FSharp.Core</div>
-<div class="tip" id="fs23">val bind : binder:(&#39;T -&gt; &#39;U option) -&gt; option:&#39;T option -&gt; &#39;U option<br /><br />Full name: Microsoft.FSharp.Core.Option.bind</div>
-<div class="tip" id="fs24">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
-<div class="tip" id="fs25">union case Option.None: Option&lt;&#39;T&gt;</div>
-<div class="tip" id="fs26">val ofArray : array:&#39;T [] -&gt; &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List.ofArray</div>
-<div class="tip" id="fs27">namespace Fable</div>
-<div class="tip" id="fs28">namespace Fable.Import</div>
-<div class="tip" id="fs29">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="tip" id="fs30">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.map</div>
-<div class="tip" id="fs31">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.choose</div>
-<div class="tip" id="fs32">val ofSeq : elements:seq&lt;&#39;Key * &#39;T&gt; -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.ofSeq</div>
-<div class="tip" id="fs33">module Browser<br /><br />from Fable.Import</div>
-<div class="tip" id="fs34">val hash : obj:&#39;T -&gt; int (requires equality)<br /><br />Full name: Microsoft.FSharp.Core.Operators.hash</div>
+<div class="tip" id="fs22">Multiple items<br />val int : value:&#39;T -&gt; int (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.int<br /><br />--------------------<br />type int = int32<br /><br />Full name: Microsoft.FSharp.Core.int<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; = int<br /><br />Full name: Microsoft.FSharp.Core.int&lt;_&gt;</div>
+<div class="tip" id="fs23">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><br />Full name: Microsoft.FSharp.Collections.List.map</div>
+<div class="tip" id="fs24">module Option<br /><br />from Microsoft.FSharp.Core</div>
+<div class="tip" id="fs25">type &#39;T option = Option&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.option&lt;_&gt;</div>
+<div class="tip" id="fs26">val tryFind : key:&#39;Key -&gt; table:Map&lt;&#39;Key,&#39;T&gt; -&gt; &#39;T option (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.tryFind</div>
+<div class="tip" id="fs27">val bind : binder:(&#39;T -&gt; &#39;U option) -&gt; option:&#39;T option -&gt; &#39;U option<br /><br />Full name: Microsoft.FSharp.Core.Option.bind</div>
+<div class="tip" id="fs28">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs29">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs30">val ofArray : array:&#39;T [] -&gt; &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List.ofArray</div>
+<div class="tip" id="fs31">namespace Fable</div>
+<div class="tip" id="fs32">namespace Fable.Import</div>
+<div class="tip" id="fs33">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs34">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.map</div>
+<div class="tip" id="fs35">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.choose</div>
+<div class="tip" id="fs36">val ofSeq : elements:seq&lt;&#39;Key * &#39;T&gt; -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.ofSeq</div>
+<div class="tip" id="fs37">module Browser<br /><br />from Fable.Import</div>
+<div class="tip" id="fs38">val hash : obj:&#39;T -&gt; int (requires equality)<br /><br />Full name: Microsoft.FSharp.Core.Operators.hash</div>
 
         </div>
         <div class="span3">

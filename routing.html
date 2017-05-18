@@ -14,10 +14,7 @@
 
     <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/browser/content/style_light.css" />
     <script type="text/javascript" src="https://fable-elmish.github.io/browser/content/tips.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <![endif]-->
+    <style>span.l { display: none }</style>
   </head>
   <body>
     <div class="container">
@@ -34,7 +31,15 @@
         <div class="span9" id="main">
           
 <h2><a name="Parsing-routes" class="anchor" href="#Parsing-routes">Parsing routes</a></h2>
-<p>The library defines building blocks for processing URLs in a way that assigns types to the values extracted.</p>
+<p>The library defines building blocks for processing URLs in a way that assigns types to the values extracted.
+The idea is to define a parser in type-safe fashion, using combinators:</p>
+<ul>
+<li><code>s</code> combinator for a static string we expect to find in the URL,</li>
+<li><code>&lt;/&gt;</code> combinator to capture a slash in the URL,</li>
+<li><code>str</code> combinator to extract a string,</li>
+<li><code>i32</code> combinator to attempt to parse an <code>int</code>.</li>
+</ul>
+<p>Some examples:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -69,7 +74,7 @@
 </code></pre></td>
 </tr>
 </table>
-<p>Normally you want to put many of these parsers together to handle all possible pages. The following parser works on URLs like <code>/blog/42</code> and <code>/search/badger</code>:</p>
+<p>Normally you want to put many of these parsers together to handle all possible routes. The following parser works on URLs like <code>/blog/42</code> and <code>/search/badger</code>:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -119,7 +124,7 @@
 </code></pre></td>
 </tr>
 </table>
-<p>now the compiler is happy for the two arguments to be passed individually to the curried case constructor.</p>
+<p>Now the compiler is happy for the two arguments to be passed individually to the curried case constructor.</p>
 
 <div class="tip" id="fs1">namespace Elmish</div>
 <div class="tip" id="fs2">namespace Elmish.Browser</div>
