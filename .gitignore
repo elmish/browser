@@ -31,3 +31,4 @@ samples/react-native/navigation/windows/
 
 *.nupkg
 Meta.props
+temp

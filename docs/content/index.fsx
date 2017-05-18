@@ -21,7 +21,7 @@ This library helps you turn URLs into nicely structured data, handle browser add
 paket add nuget Fable.Elmish.Browser
 ```
 
-## Routing: Combinators for parsing browser url into a route
+## Routing: Intercept browser address changes and feed them into the dispatch loop
 Usage:
 *)
 
@@ -32,6 +32,8 @@ Program.mkProgram init update view
 |> Program.run
 
 (**
+For more information see the [routing tutorial](routing.html).
+
 ## Navigation: Manipulate the browser's navigation and history
 Usage:
 *)
@@ -40,3 +42,9 @@ open Elmish.Browser.Navigation
 
 let update model msg =
     model, Navigation.newUrl "some_other_location"
+
+(**
+
+For details see the [`Program` extensions](navigation.html##Direct-history-manipulation).
+
+*)

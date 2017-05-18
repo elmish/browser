@@ -8,8 +8,8 @@
 
 (**
 *)
-(** 
-### UrlParser
+(** UrlParser
+------
 This port of the Elm library helps you turn URLs into nicely structured data.
 It is designed to be used with `Navigation` module to help folks create
 single-page applications (SPAs) where you manage browser navigation yourself.
@@ -19,7 +19,7 @@ module Elmish.Browser.UrlParser
 
 
 (** 
-#### TYPES
+#### Types
 *)
 
 type State<'v> =
@@ -49,16 +49,16 @@ type Parser<'a,'b> = State<'a> -> State<'b> list
 
 
 (** 
-#### PARSE SEGMENTS
+#### Parse segements
 Create a custom path segment parser. You can use it to define something like “only CSS files” like this:
-<pre>
+```
     let css =
       custom "CSS_FILE" <| fun segment ->
         if String.EndsWith ".css" then
           Ok segment
         else
           Error "Does not end with .css"
-</pre>
+```
 *)
 let custom tipe stringToSomething : Parser<_,_> =
     let inner { visited = visited; unvisited = unvisited; args = args; value = value } =
@@ -75,8 +75,10 @@ let custom tipe stringToSomething : Parser<_,_> =
 
 
 (** Parse a segment of the path as a `string`.
-<pre>
+```
     parse str location
+```
+<pre>
     /alice/  ==>  Some "alice"
     /bob     ==>  Some "bob"
     /42/     ==>  Some "42"
@@ -87,8 +89,10 @@ let str state =
 
 
 (** Parse a segment of the path as an `int`.
-<pre>
+```
     parse i32 location
+```
+<pre>
     /alice/  ==>  None
     /bob     ==>  None
     /42/     ==>  Some 42
@@ -99,10 +103,10 @@ let i32 state =
 
 
 (** Parse a segment of the path if it matches a given string.
-<pre>
+```
     s "blog"  // can parse /blog/
               // but not /glob/ or /42/ or anything else
-</pre>
+```
 *)
 let s str : Parser<_,_> =
     let inner { visited = visited; unvisited = unvisited; args = args; value = value } =
@@ -118,16 +122,22 @@ let s str : Parser<_,_> =
 
 
 (** 
-#### COMBINING PARSERS
+#### Combining parsers
 
+```
 Parse a path with multiple segments.
-<pre>
     parse (s "blog" </> i32) location
+```
+<pre>
     /blog/35/  ==>  Some 35
     /blog/42   ==>  Some 42
     /blog/     ==>  None
     /42/       ==>  None
+</pre>
+```
     parse (s "search" </> str) location
+```
+<pre>
     /search/cats/  ==>  Some "cats"
     /search/frog   ==>  Some "frog"
     /search/       ==>  None
@@ -140,13 +150,15 @@ let inline (</>) (parseBefore:Parser<_,_>) (parseAfter:Parser<_,_>) =
 
 
 (** Transform a path parser.
-<pre>
+```
     type Comment = { author : string; id : int }
     rawComment =
       s "user" </> str </> s "comments" </> i32
     comment =
       map (fun a id -> { author = a; id = id }) rawComment
     parse comment location
+```
+<pre>
     /user/bob/comments/42  ==>  Some { author = "bob"; id = 42 }
     /user/tom/comments/35  ==>  Some { author = "tom"; id = 35 }
     /user/sam/             ==>  None
@@ -164,7 +176,7 @@ let map (subValue:'a) (parse:Parser<'a,'b>) : Parser<'b->'c,'c> =
 
 
 (** Try a bunch of different path parsers.
-<pre>
+```
     type Route
       = Search of string
       | Blog of int
@@ -177,6 +189,8 @@ let map (subValue:'a) (parse:Parser<'a,'b>) : Parser<'b->'c,'c> =
           map User    (s "user" </> str)
           map Comment (s "user" </> str </> "comments" </> i32) ]
     parse route location
+```
+<pre>
     /search/cats           ==>  Some (Search "cats")
     /search/               ==>  None
     /blog/42               ==>  Some (Blog 42)
@@ -192,13 +206,15 @@ let oneOf parsers state =
 
 
 (** A parser that does not consume any path segments.
-<pre>
+```
     type BlogRoute = Overview | Post of int
     blogRoute =
       oneOf
         [ map Overview top
           map Post  (s "post" </> i32) ]
     parse (s "blog" </> blogRoute) location
+```
+<pre>
     /blog/         ==>  Some Overview
     /blog/post/42  ==>  Some (Post 42)
 </pre>
@@ -209,21 +225,24 @@ let top state=
 
 
 (** 
-#### QUERY PARAMETERS
+#### Query parameters
+Turn query parameters like `?name=tom&age=42` into nice data.
+
 *)
 
-/// Turn query parameters like `?name=tom&age=42` into nice data.
 type QueryParser<'a,'b> = State<'a> -> State<'b> list
 
 
 (** Parse some query parameters.
-<pre>
+```
     type Route = BlogList (Option string) | BlogPost Int
     route =
       oneOf
         [ map BlogList (s "blog" <?> stringParam "search")
           map BlogPost (s "blog" </> i32) ]
     parse route location
+```
+<pre>
     /blog/              ==>  Some (BlogList None)
     /blog/?search=cats  ==>  Some (BlogList (Some "cats"))
     /blog/42            ==>  Some (BlogPost 42)
@@ -234,10 +253,10 @@ let inline (<?>) (parser:Parser<_,_>) (queryParser:QueryParser<_,_>) : Parser<_,
         List.collect queryParser (parser state)
 
 (** Create a custom query parser. You could create parsers like these:
-<pre>
+```
     val jsonParam : string -> Decoder a -> QueryParser (Option a -> b) b
     val enumParam : string -> Map<string,a> -> QueryParser (Option a -> b) b
-</pre>
+```
 *)
 let customParam (key: string) (func:string option -> _) : QueryParser<_,_> =
     let inner { visited = visited; unvisited = unvisited; args = args; value = value } =
@@ -246,8 +265,10 @@ let customParam (key: string) (func:string option -> _) : QueryParser<_,_> =
 
 
 (** Parse a query parameter as a `string`.
-<pre>
+```
     parse (s "blog" <?> stringParam "search") location
+```
+<pre>
     /blog/              ==>  Some (Overview None)
     /blog/?search=cats  ==>  Some (Overview (Some "cats"))
 </pre>
@@ -262,11 +283,13 @@ let internal intParamHelp =
             | (true,x) -> Some x
             | _ -> None)
 
-(** Parse a query parameter as an `Int`. Option you want to show paginated
+(** Parse a query parameter as an `int`. Option you want to show paginated
 search results. You could have a `start` query parameter to say which result
 should appear first.
-<pre>
+```
     parse (s "results" <?> intParam "start") location
+```
+<pre>
     /results           ==>  Some None
     /results?start=10  ==>  Some (Some 10)
 </pre>
@@ -324,7 +347,7 @@ let internal parseParams (querystring:string) =
 open Fable.Import.Browser
 
 (** 
-#### PARSERS
+#### Parsers
 Parse based on `location.pathname` and `location.search`. This parser
 ignores the hash entirely.
 *)

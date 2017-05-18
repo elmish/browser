@@ -18,8 +18,10 @@ namespace Elmish.Browser.Navigation
 open Fable.Import.Browser
 open Elmish
 
-/// Parser is a function to turn the string in the address bar into
-/// data that is easier for your app to handle.
+(**
+#### Parser 
+A function to turn the string in the address bar into data that is easier for your app to handle.
+*)
 type Parser<'a> = Location -> 'a
 
 type Navigable<'msg> = 

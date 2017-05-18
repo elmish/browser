@@ -14,10 +14,7 @@
 
     <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/browser/content/style_light.css" />
     <script type="text/javascript" src="https://fable-elmish.github.io/browser/content/tips.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <![endif]-->
+    <style>span.l { display: none }</style>
   </head>
   <body>
     <div class="container">
@@ -34,7 +31,16 @@
         <div class="span9" id="main">
           
 <h2><a name="Parsing-routes" class="anchor" href="#Parsing-routes">Parsing routes</a></h2>
-<p>The library defines building blocks for processing URLs in a way that assigns types to the values extracted.</p>
+<p>The library defines building blocks for processing URLs in a way that assigns types to the values extracted.
+The idea is to define a parser in type-safe fashion, using combinators:</p>
+<ul>
+<li><code>s</code> combinator for a static string we expect to find in the URL,</li>
+<li><code>&lt;/&gt;</code> combinator to capture a slash in the URL,</li>
+<li><code>str</code> combinator to extract a string,</li>
+<li><code>i32</code> combinator to attempt to parse an <code>int</code>.</li>
+<li><code>top</code> combinator that takes nothing.</li>
+</ul>
+<p>Some examples:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -69,7 +75,7 @@
 </code></pre></td>
 </tr>
 </table>
-<p>Normally you want to put many of these parsers together to handle all possible pages. The following parser works on URLs like <code>/blog/42</code> and <code>/search/badger</code>:</p>
+<p>Normally you want to put many of these parsers together to handle all possible routes. The following parser works on URLs like <code>/blog/42</code> and <code>/search/badger</code>:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -119,7 +125,66 @@
 </code></pre></td>
 </tr>
 </table>
-<p>now the compiler is happy for the two arguments to be passed individually to the curried case constructor.</p>
+<p>Now the compiler is happy for the two arguments to be passed individually to the curried case constructor.</p>
+<h3><a name="Handling-URL-updates-in-your-application" class="anchor" href="#Handling-URL-updates-in-your-application">Handling URL updates in your application</a></h3>
+<p>Now that we've parsed the route into a nice data structure, we need to handle the updates.
+For that we'll define <code>urlUpdate</code> function that takes the current state and the parsed output, for example:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs24', 67)" onmouseover="showTip(event, 'fs24', 67)" class="t">Model</span> <span class="o">=</span>
+  { <span onmouseout="hideTip(event, 'fs25', 68)" onmouseover="showTip(event, 'fs25', 68)" class="i">route</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 69)" onmouseover="showTip(event, 'fs8', 69)" class="t">Route</span>
+    <span onmouseout="hideTip(event, 'fs26', 70)" onmouseover="showTip(event, 'fs26', 70)" class="i">query</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs12', 71)" onmouseover="showTip(event, 'fs12', 71)" class="t">string</span> }
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 72)" onmouseover="showTip(event, 'fs1', 72)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 73)" onmouseover="showTip(event, 'fs2', 73)" class="i">Browser</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs27', 74)" onmouseover="showTip(event, 'fs27', 74)" class="i">Navigation</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs28', 75)" onmouseover="showTip(event, 'fs28', 75)" class="f">urlUpdate</span> (<span onmouseout="hideTip(event, 'fs29', 76)" onmouseover="showTip(event, 'fs29', 76)" class="i">result</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs30', 77)" onmouseover="showTip(event, 'fs30', 77)" class="t">Option</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs8', 78)" onmouseover="showTip(event, 'fs8', 78)" class="t">Route</span><span class="o">&gt;</span>) <span onmouseout="hideTip(event, 'fs31', 79)" onmouseover="showTip(event, 'fs31', 79)" class="i">model</span> <span class="o">=</span>
+  <span class="k">match</span> <span onmouseout="hideTip(event, 'fs29', 80)" onmouseover="showTip(event, 'fs29', 80)" class="i">result</span> <span class="k">with</span>
+  | <span onmouseout="hideTip(event, 'fs32', 81)" onmouseover="showTip(event, 'fs32', 81)" class="p">Some</span> (<span onmouseout="hideTip(event, 'fs11', 82)" onmouseover="showTip(event, 'fs11', 82)" class="p">Search</span> <span onmouseout="hideTip(event, 'fs33', 83)" onmouseover="showTip(event, 'fs33', 83)" class="i">query</span>) <span class="k">-&gt;</span>
+      { <span onmouseout="hideTip(event, 'fs31', 84)" onmouseover="showTip(event, 'fs31', 84)" class="i">model</span> <span class="k">with</span> <span onmouseout="hideTip(event, 'fs13', 85)" onmouseover="showTip(event, 'fs13', 85)" class="i">route</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 86)" onmouseover="showTip(event, 'fs29', 86)" class="i">result</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 87)" onmouseover="showTip(event, 'fs34', 87)" class="i">Value</span>; <span onmouseout="hideTip(event, 'fs33', 88)" onmouseover="showTip(event, 'fs33', 88)" class="i">query</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 89)" onmouseover="showTip(event, 'fs33', 89)" class="i">query</span> }, [] <span class="c">// Issue some search Cmd instead</span>
+
+  | <span onmouseout="hideTip(event, 'fs32', 90)" onmouseover="showTip(event, 'fs32', 90)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs35', 91)" onmouseover="showTip(event, 'fs35', 91)" class="i">page</span> <span class="k">-&gt;</span>
+      { <span onmouseout="hideTip(event, 'fs31', 92)" onmouseover="showTip(event, 'fs31', 92)" class="i">model</span> <span class="k">with</span> <span onmouseout="hideTip(event, 'fs13', 93)" onmouseover="showTip(event, 'fs13', 93)" class="i">route</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 94)" onmouseover="showTip(event, 'fs35', 94)" class="i">page</span>; <span onmouseout="hideTip(event, 'fs36', 95)" onmouseover="showTip(event, 'fs36', 95)" class="i">query</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> }, []
+
+  | <span onmouseout="hideTip(event, 'fs37', 96)" onmouseover="showTip(event, 'fs37', 96)" class="p">None</span> <span class="k">-&gt;</span>
+      ( <span onmouseout="hideTip(event, 'fs31', 97)" onmouseover="showTip(event, 'fs31', 97)" class="i">model</span>, <span onmouseout="hideTip(event, 'fs38', 98)" onmouseover="showTip(event, 'fs38', 98)" class="t">Navigation</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs39', 99)" onmouseover="showTip(event, 'fs39', 99)" class="f">modifyUrl</span> <span class="s">&quot;#&quot;</span> ) <span class="c">// no matching route - go home</span>
+    
+</code></pre></td>
+</tr>
+</table>
+<p>It looks like <code>update</code> function but instead of the message it handles the route changes.
+If the URL is valid, we just update our model or issue a command, otherwise we modify the URL to whatever makes sense.</p>
+<p>Now we augument our program instance with Navigation capabilities, passing the parser and <code>urlUpdate</code>:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 100)" onmouseover="showTip(event, 'fs1', 100)" class="i">Elmish</span>
+
+<span onmouseout="hideTip(event, 'fs40', 101)" onmouseover="showTip(event, 'fs40', 101)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 102)" onmouseover="showTip(event, 'fs41', 102)" class="f">mkProgram</span> <span class="i">init</span> <span class="i">update</span> <span class="i">view</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs40', 103)" onmouseover="showTip(event, 'fs40', 103)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 104)" onmouseover="showTip(event, 'fs42', 104)" class="f">toNavigable</span> (<span onmouseout="hideTip(event, 'fs43', 105)" onmouseover="showTip(event, 'fs43', 105)" class="f">parseHash</span> <span onmouseout="hideTip(event, 'fs13', 106)" onmouseover="showTip(event, 'fs13', 106)" class="f">route</span>) <span onmouseout="hideTip(event, 'fs44', 107)" onmouseover="showTip(event, 'fs44', 107)" class="f">urlUpdate</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs40', 108)" onmouseover="showTip(event, 'fs40', 108)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 109)" onmouseover="showTip(event, 'fs45', 109)" class="f">run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>And we're done.</p>
 
 <div class="tip" id="fs1">namespace Elmish</div>
 <div class="tip" id="fs2">namespace Elmish.Browser</div>
@@ -144,6 +209,28 @@
 <div class="tip" id="fs21">val y : &#39;b</div>
 <div class="tip" id="fs22">val route2 : state:State&lt;(Route2 -&gt; &#39;a)&gt; -&gt; State&lt;&#39;a&gt; list<br /><br />Full name: Routing.route2</div>
 <div class="tip" id="fs23">val state : State&lt;(Route2 -&gt; &#39;a)&gt;</div>
+<div class="tip" id="fs24">type Model =<br />&#160;&#160;{route: Route;<br />&#160;&#160;&#160;query: string;}<br /><br />Full name: Routing.Model</div>
+<div class="tip" id="fs25">Model.route: Route</div>
+<div class="tip" id="fs26">Model.query: string</div>
+<div class="tip" id="fs27">namespace Elmish.Browser.Navigation</div>
+<div class="tip" id="fs28">val urlUpdate : result:Option&lt;Route&gt; -&gt; model:Model -&gt; Model * Elmish.Sub&lt;&#39;a&gt; list<br /><br />Full name: Routing.urlUpdate</div>
+<div class="tip" id="fs29">val result : Option&lt;Route&gt;</div>
+<div class="tip" id="fs30">module Option<br /><br />from Microsoft.FSharp.Core</div>
+<div class="tip" id="fs31">val model : Model</div>
+<div class="tip" id="fs32">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs33">val query : string</div>
+<div class="tip" id="fs34">property Option.Value: Route</div>
+<div class="tip" id="fs35">val page : Route</div>
+<div class="tip" id="fs36">val query : Linq.QueryBuilder<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.query</div>
+<div class="tip" id="fs37">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs38">module Navigation<br /><br />from Elmish.Browser.Navigation</div>
+<div class="tip" id="fs39">val modifyUrl : newUrl:string -&gt; Elmish.Cmd&lt;&#39;a&gt;<br /><br />Full name: Elmish.Browser.Navigation.Navigation.modifyUrl</div>
+<div class="tip" id="fs40">Multiple items<br />module Program<br /><br />from Elmish<br /><br />--------------------<br />module Program<br /><br />from Elmish.Browser.Navigation<br /><br />--------------------<br />type Program&lt;&#39;arg,&#39;model,&#39;msg,&#39;view&gt; =<br />&#160;&#160;{init: &#39;arg -&gt; &#39;model * Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;update: &#39;msg -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;subscribe: &#39;model -&gt; Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;view: &#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; &#39;view;<br />&#160;&#160;&#160;setState: &#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; unit;<br />&#160;&#160;&#160;onError: string * exn -&gt; unit;}<br /><br />Full name: Elmish.Program&lt;_,_,_,_&gt;</div>
+<div class="tip" id="fs41">val mkProgram : init:(&#39;arg -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; update:(&#39;msg -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; view:(&#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; &#39;view) -&gt; Program&lt;&#39;arg,&#39;model,&#39;msg,&#39;view&gt;<br /><br />Full name: Elmish.Program.mkProgram</div>
+<div class="tip" id="fs42">val toNavigable : parser:Parser&lt;&#39;a&gt; -&gt; urlUpdate:(&#39;a -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; program:Program&lt;&#39;a,&#39;model,&#39;msg,&#39;view&gt; -&gt; Program&lt;unit,&#39;model,Navigable&lt;&#39;msg&gt;,&#39;view&gt;<br /><br />Full name: Elmish.Browser.Navigation.Program.toNavigable</div>
+<div class="tip" id="fs43">val parseHash : parser:Parser&lt;(&#39;a -&gt; &#39;a),&#39;a&gt; -&gt; location:Fable.Import.Browser.Location -&gt; &#39;a option<br /><br />Full name: Elmish.Browser.UrlParser.parseHash</div>
+<div class="tip" id="fs44">val urlUpdate : result:Option&lt;Route&gt; -&gt; model:Model -&gt; Model * Sub&lt;&#39;a&gt; list<br /><br />Full name: Routing.urlUpdate</div>
+<div class="tip" id="fs45">val run : program:Program&lt;unit,&#39;model,&#39;msg,&#39;view&gt; -&gt; unit<br /><br />Full name: Elmish.Program.run</div>
 
         </div>
         <div class="span3">

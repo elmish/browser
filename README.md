@@ -1,14 +1,15 @@
 Elmish-browser: browser extras for Elmish apps.
 =======
+[![Windows Build](https://ci.appveyor.com/api/projects/status/rrtg4fxbt7lqbayv?svg=true)](https://ci.appveyor.com/project/et1975/browser) [![Mono/OSX build](https://travis-ci.org/fable-elmish/browser.svg?branch=master)](https://travis-ci.org/fable-elmish/browser) [![NuGet version](https://badge.fury.io/nu/Fable.Elmish.Browser.svg)](https://badge.fury.io/nu/Fable.Elmish.Browser)
 
-Elmish-browser implements routing and navigation for elmish apps targeting browser (React) renderers.
+Elmish-browser implements routing and navigation for Fable apps targeting web browsers.
+
+For more information see [the docs](https://fable-elmish.github.io/browser).
 
 ## Installation
 
-In a project directory with `dotnet-fable` CLI tools installed, type:
-
 ```shell
-dotnet fable add fable-powerpack fable-elmish fable-elmish-browser.
+paket add fable-elmish-browser
 ```
 
 ## Porting from previous version of the parser
@@ -19,24 +20,4 @@ In addition to providing query parsing capabilities, this port from Elm/url-pars
 - new `parsePath` works with entire url, not just the hash portion
 
 If you've been using `Result` type for other purposes, it is now available in F# 4.1 Core and is still available from Fable-PowerPack.
-
-
-## Routing: Combinators for parsing browser's url into a route
-Usage:
-```fsharp
-open Elmish.Browser.Navigation
-
-Program.mkProgram init update view
-|> Program.toNavigable parser urlUpdate
-|> Program.run
-```
-
-## Navigation: Manipulate the browser's navigation and history
-Usage:
-```fsharp
-open Elmish.Browser.Navigation
-
-let update model msg =
-    model, Navigation.newUrl "some_other_location"
-```
 

@@ -15,10 +15,7 @@
 
     <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/browser/content/style_light.css" />
     <script type="text/javascript" src="https://fable-elmish.github.io/browser/content/tips.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <![endif]-->
+    <style>span.l { display: none }</style>
   </head>
   <body>
     <div class="container">
@@ -42,7 +39,7 @@ This library helps you turn URLs into nicely structured data, handle browser add
 </pre></td>
 <td class="snippet"><pre class="fssnip"><code lang="shell">paket add nuget Fable.Elmish.Browser
 </code></pre></td></tr></table>
-<h2><a name="Routing-Combinators-for-parsing-browser-url-into-a-route" class="anchor" href="#Routing-Combinators-for-parsing-browser-url-into-a-route">Routing: Combinators for parsing browser url into a route</a></h2>
+<h2><a name="Routing-Intercept-browser-address-changes-and-feed-them-into-the-dispatch-loop" class="anchor" href="#Routing-Intercept-browser-address-changes-and-feed-them-into-the-dispatch-loop">Routing: Intercept browser address changes and feed them into the dispatch loop</a></h2>
 <p>Usage:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -58,6 +55,7 @@ This library helps you turn URLs into nicely structured data, handle browser add
 </code></pre></td>
 </tr>
 </table>
+<p>For more information see the <a href="routing.html">routing tutorial</a>.</p>
 <h2><a name="Navigation-Manipulate-the-browser-s-navigation-and-history" class="anchor" href="#Navigation-Manipulate-the-browser-s-navigation-and-history">Navigation: Manipulate the browser's navigation and history</a></h2>
 <p>Usage:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
@@ -72,6 +70,7 @@ This library helps you turn URLs into nicely structured data, handle browser add
 </code></pre></td>
 </tr>
 </table>
+<p>For details see the <a href="navigation.html##Direct-history-manipulation"><code>Program</code> extensions</a>.</p>
 
 <div class="tip" id="fs1">namespace Elmish</div>
 <div class="tip" id="fs2">namespace Elmish.Browser</div>
