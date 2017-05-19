@@ -9,7 +9,7 @@ For more information see [the docs](https://fable-elmish.github.io/browser).
 ## Installation
 
 ```shell
-paket add fable-elmish-browser
+paket add Fable.Elmish.Browser
 ```
 
 ## Porting from previous version of the parser

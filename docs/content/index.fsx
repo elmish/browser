@@ -8,10 +8,9 @@
 open Elmish
 
 (**
-Elmish-browser: browser extras for Elmish apps
+Elmish-browser: routing and navigation for browser apps
 =======
 
-Elmish-browser implements routing and navigation for Fable apps targeting the web browsers.
 This library helps you turn URLs into nicely structured data, handle browser address change events and manipulate browser history directly.
 
 
