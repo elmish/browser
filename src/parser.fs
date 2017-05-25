@@ -344,9 +344,16 @@ ignores the hash entirely.
 let parsePath (parser:Parser<_,_>) (location:Location) =
     parse parser location.pathname (parseParams location.search)
 
-(** Parse based on `location.hash` and `location.search`. This parser
-ignores the normal path entirely.
+(* Parse based on `location.hash`. This parser ignores the normal
+path entirely.
 *)
 let parseHash (parser:Parser<_,_>) (location:Location) =
-    parse parser (location.hash.Substring 1) (parseParams location.search)
+    let hash, search = 
+        (location.hash.Substring 1).Split([|"?"|], System.StringSplitOptions.RemoveEmptyEntries)
+        |> Array.truncate 2
+        |> function
+        | [|a|] -> a, "?"
+        | [|a;b|] -> a, "?"+b
+        | _ -> "", "?"   
 
+    parse parser (hash) (parseParams search)
