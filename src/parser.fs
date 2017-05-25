@@ -348,12 +348,12 @@ let parsePath (parser:Parser<_,_>) (location:Location) =
 path entirely.
 *)
 let parseHash (parser:Parser<_,_>) (location:Location) =
-    let hash, search = 
-        (location.hash.Substring 1).Split([|"?"|], System.StringSplitOptions.RemoveEmptyEntries)
-        |> Array.truncate 2
-        |> function
-        | [|a|] -> a, "?"
-        | [|a;b|] -> a, "?"+b
-        | _ -> "", "?"   
+    let hash, search =
+        let hash = location.hash.Substring 1
+        if hash.Contains("?") then
+            let h = hash.Substring(0, hash.IndexOf("?"))
+            h, hash.Substring(h.Length)
+        else
+            hash, "?"
 
     parse parser (hash) (parseParams search)
