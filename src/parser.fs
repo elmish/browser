@@ -344,7 +344,7 @@ ignores the hash entirely.
 let parsePath (parser:Parser<_,_>) (location:Location) =
     parse parser location.pathname (parseParams location.search)
 
-(* Parse based on `location.hash`. This parser ignores the normal
+(** Parse based on `location.hash`. This parser ignores the normal
 path entirely.
 *)
 let parseHash (parser:Parser<_,_>) (location:Location) =
