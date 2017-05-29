@@ -8,7 +8,7 @@
 open Elmish
 
 (**
-Elmish-browser: routing and navigation for browser apps
+Routing and navigation for browser apps
 =======
 
 This library helps you turn URLs into nicely structured data, handle browser address change events and manipulate browser history directly.
@@ -20,7 +20,9 @@ This library helps you turn URLs into nicely structured data, handle browser add
 paket add nuget Fable.Elmish.Browser
 ```
 
-## Routing: Intercept browser address changes and feed them into the dispatch loop
+## Routing
+Intercept browser address changes and feed them into the dispatch loop.
+
 Usage:
 *)
 
@@ -33,7 +35,9 @@ Program.mkProgram init update view
 (**
 For more information see the [routing tutorial](routing.html).
 
-## Navigation: Manipulate the browser's navigation and history
+## Navigation
+Manipulate the browser's navigation and history.
+
 Usage:
 *)
 
@@ -44,6 +48,6 @@ let update model msg =
 
 (**
 
-For details see the [`Program` extensions](navigation.html##Direct-history-manipulation).
+For details see the [`Navigation`](navigation.html##Direct-history-manipulation) module.
 
 *)

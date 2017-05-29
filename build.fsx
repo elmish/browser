@@ -128,7 +128,8 @@ Target "Package" (fun _ ->
 )
 
 Target "PublishNuget" (fun _ ->
-    runDotnet "src" "push"
+    let args = sprintf "nuget push Fable.Elmish.Browser.%s.nupkg -s nuget.org -k %s" (string release.SemVer) (environVar "nugetkey")
+    runDotnet "src/bin/Debug" args
 )
 
 
@@ -273,7 +274,7 @@ Target "Publish" DoNothing
   ==> "ReleaseDocs"
 
 "Publish"
-  <== [ "Build"
+  <== [ "Package"
         "PublishNuget"
         "ReleaseDocs" ]
   

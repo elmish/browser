@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>Elmish-browser: browser extras for Elmish apps
+    <title>Routing and navigation for browser apps
 </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="Elmish browser extensions: UrlParser and Navigation"/>
@@ -31,15 +31,15 @@
       <div class="row">
         <div class="span9" id="main">
           
-<h1><a name="Elmish-browser-browser-extras-for-Elmish-apps" class="anchor" href="#Elmish-browser-browser-extras-for-Elmish-apps">Elmish-browser: browser extras for Elmish apps</a></h1>
-<p>Elmish-browser implements routing and navigation for Fable apps targeting the web browsers.
-This library helps you turn URLs into nicely structured data, handle browser address change events and manipulate browser history directly.</p>
+<h1><a name="Routing-and-navigation-for-browser-apps" class="anchor" href="#Routing-and-navigation-for-browser-apps">Routing and navigation for browser apps</a></h1>
+<p>This library helps you turn URLs into nicely structured data, handle browser address change events and manipulate browser history directly.</p>
 <h2><a name="Installation" class="anchor" href="#Installation">Installation</a></h2>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip"><code lang="shell">paket add nuget Fable.Elmish.Browser
 </code></pre></td></tr></table>
-<h2><a name="Routing-Intercept-browser-address-changes-and-feed-them-into-the-dispatch-loop" class="anchor" href="#Routing-Intercept-browser-address-changes-and-feed-them-into-the-dispatch-loop">Routing: Intercept browser address changes and feed them into the dispatch loop</a></h2>
+<h2><a name="Routing" class="anchor" href="#Routing">Routing</a></h2>
+<p>Intercept browser address changes and feed them into the dispatch loop.</p>
 <p>Usage:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -56,7 +56,8 @@ This library helps you turn URLs into nicely structured data, handle browser add
 </tr>
 </table>
 <p>For more information see the <a href="routing.html">routing tutorial</a>.</p>
-<h2><a name="Navigation-Manipulate-the-browser-s-navigation-and-history" class="anchor" href="#Navigation-Manipulate-the-browser-s-navigation-and-history">Navigation: Manipulate the browser's navigation and history</a></h2>
+<h2><a name="Navigation" class="anchor" href="#Navigation">Navigation</a></h2>
+<p>Manipulate the browser's navigation and history.</p>
 <p>Usage:</p>
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
@@ -70,7 +71,7 @@ This library helps you turn URLs into nicely structured data, handle browser add
 </code></pre></td>
 </tr>
 </table>
-<p>For details see the <a href="navigation.html##Direct-history-manipulation"><code>Program</code> extensions</a>.</p>
+<p>For details see the <a href="navigation.html##Direct-history-manipulation"><code>Navigation</code></a> module.</p>
 
 <div class="tip" id="fs1">namespace Elmish</div>
 <div class="tip" id="fs2">namespace Elmish.Browser</div>

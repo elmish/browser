@@ -593,13 +593,29 @@ ignores the hash entirely.</p>
 </code></pre></td>
 </tr>
 </table>
-<p>Parse based on <code>location.hash</code> and <code>location.search</code>. This parser
-ignores the normal path entirely.</p>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
+<p>Parse based on <code>location.hash</code>. This parser ignores the normal
+path entirely.</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">parseHash</span> (<span class="i">parser</span><span class="o">:</span><span class="i">Parser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span>) (<span class="i">location</span><span class="o">:</span><span class="i">Location</span>) <span class="o">=</span>
-    <span class="i">parse</span> <span class="i">parser</span> (<span class="i">location</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 97)" onmouseover="showTip(event, 'fs38', 97)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span> <span class="n">1</span>) (<span class="i">parseParams</span> <span class="i">location</span><span class="o">.</span><span class="i">search</span>)
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 97)" onmouseover="showTip(event, 'fs38', 97)" class="i">hash</span>, <span class="i">search</span> <span class="o">=</span>
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 98)" onmouseover="showTip(event, 'fs38', 98)" class="i">hash</span> <span class="o">=</span> <span class="i">location</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs38', 99)" onmouseover="showTip(event, 'fs38', 99)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span> <span class="n">1</span>
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs38', 100)" onmouseover="showTip(event, 'fs38', 100)" class="i">hash</span><span class="o">.</span><span class="i">Contains</span>(<span class="s">&quot;?&quot;</span>) <span class="k">then</span>
+            <span class="k">let</span> <span class="i">h</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs38', 101)" onmouseover="showTip(event, 'fs38', 101)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span>(<span class="n">0</span>, <span onmouseout="hideTip(event, 'fs38', 102)" onmouseover="showTip(event, 'fs38', 102)" class="i">hash</span><span class="o">.</span><span class="i">IndexOf</span>(<span class="s">&quot;?&quot;</span>))
+            <span class="i">h</span>, <span onmouseout="hideTip(event, 'fs38', 103)" onmouseover="showTip(event, 'fs38', 103)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span>(<span class="i">h</span><span class="o">.</span><span class="i">Length</span>)
+        <span class="k">else</span>
+            <span onmouseout="hideTip(event, 'fs38', 104)" onmouseover="showTip(event, 'fs38', 104)" class="i">hash</span>, <span class="s">&quot;?&quot;</span>
+
+    <span class="i">parse</span> <span class="i">parser</span> (<span onmouseout="hideTip(event, 'fs38', 105)" onmouseover="showTip(event, 'fs38', 105)" class="i">hash</span>) (<span class="i">parseParams</span> <span class="i">search</span>)
 </code></pre></td>
 </tr>
 </table>
