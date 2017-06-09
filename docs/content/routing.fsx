@@ -118,7 +118,13 @@ Program.mkProgram init update view
 
 (**
 
-And we're done.
+### Working with full (HTML5) and hash-based URLs
+`parseHash` function works with "hashbang" URLs, i.e. everything after the '#' symbol, while `parsePath` works with the entire location.
+The query for a hashbang URL never leaves the browser and can appear in traditional tags like `<a>`. 
+Working with full URL on the other hand means you have to be careful about which requests you want forwarded to the server and which ones should be handled locally.
+To keep the request local you have to use `Navigation` module for all the URL transitions.
+
+Make sure you understand which one you need.
 
 *)
 

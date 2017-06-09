@@ -123,9 +123,9 @@ let s str : Parser<_,_> =
 
 (** 
 #### Combining parsers
+Parse a path with multiple segments.
 
 ```
-Parse a path with multiple segments.
     parse (s "blog" </> i32) location
 ```
 <pre>
