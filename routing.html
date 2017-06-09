@@ -184,7 +184,12 @@ If the URL is valid, we just update our model or issue a command, otherwise we m
 </code></pre></td>
 </tr>
 </table>
-<p>And we're done.</p>
+<h3><a name="Working-with-full-HTML5-and-hash-based-URLs" class="anchor" href="#Working-with-full-HTML5-and-hash-based-URLs">Working with full (HTML5) and hash-based URLs</a></h3>
+<p><code>parseHash</code> function works with "hashbang" URLs, i.e. everything after the '#' symbol, while <code>parsePath</code> works with the entire location.
+The query for a hashbang URL never leaves the browser and can appear in traditional tags like <code>&lt;a&gt;</code>.
+Working with full URL on the other hand means you have to be careful about which requests you want forwarded to the server and which ones should be handled locally.
+To keep the request local you have to use <code>Navigation</code> module for all the URL transitions.</p>
+<p>Make sure you understand which one you need.</p>
 
 <div class="tip" id="fs1">namespace Elmish</div>
 <div class="tip" id="fs2">namespace Elmish.Browser</div>
@@ -240,6 +245,7 @@ If the URL is valid, we just update our model or issue a command, otherwise we m
             <li><a href="https://github.com/fable-elmish/browser">Source Code on GitHub</a></li>
             <li class="nav-header">Tutorials</li>
             <li><a href="https://fable-elmish.github.io/browser/routing.html">Parsing routes</a></li>
+            <li><a href="https://fable-elmish.github.io/browser/queries.html">Query parameters</a></li>
             <li class="nav-header">Modules</li>
             <li><a href="https://fable-elmish.github.io/browser/parser.html">Parser</a></li>
             <li><a href="https://fable-elmish.github.io/browser/navigation.html">Navigation</a></li>
