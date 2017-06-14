@@ -51,3 +51,4 @@ let update model msg =
 For details see the [`Navigation`](navigation.html##Direct-history-manipulation) module.
 
 *)
+

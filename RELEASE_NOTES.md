@@ -1,3 +1,7 @@
+### 0.9.0
+
+* Releasing for "stable" fable 1.x
+
 ### 0.9.0-beta-6
 
 * Breaking: `hashParser` will use `?` *after* hash when looking for query params (thanks to @davidtme)

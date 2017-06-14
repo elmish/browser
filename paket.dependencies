@@ -2,6 +2,7 @@ source https://nuget.org/api/v2
 
 nuget FSharp.Core  redirects:force, content:none
 nuget Fable.Core
+nuget Fable.Import.Browser
 nuget Fable.PowerPack
 nuget Fable.Elmish
 

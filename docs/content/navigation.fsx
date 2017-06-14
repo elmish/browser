@@ -59,50 +59,49 @@ Treat user's program as a child component, by wrapping it and handling navigatio
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 [<RequireQualifiedAccess>]
 module Program =
-  /// Add the navigation to a program made with `mkProgram` or `mkSimple`.
-  /// urlUpdate: similar to `update` function, but receives parsed url instead of message as an input.
-  let toNavigable (parser : Parser<'a>) 
+    /// Add the navigation to a program made with `mkProgram` or `mkSimple`.
+    /// urlUpdate: similar to `update` function, but receives parsed url instead of message as an input.
+    let toNavigable (parser : Parser<'a>) 
                   (urlUpdate : 'a->'model->('model * Cmd<'msg>)) 
                   (program : Program<'a,'model,'msg,'view>) =
-    let map (model, cmd) = 
-        model, cmd |> Cmd.map UserMsg
-    
-    let update msg model =
-        match msg with
-        | Change location ->
-            urlUpdate (parser location) model
-        | UserMsg userMsg ->
-            program.update userMsg model
-        |> map
+        let map (model, cmd) = 
+            model, cmd |> Cmd.map UserMsg
+        
+        let update msg model =
+            match msg with
+            | Change location ->
+                urlUpdate (parser location) model
+            | UserMsg userMsg ->
+                program.update userMsg model
+            |> map
 
-    let locationChanges (dispatch:Dispatch<_ Navigable>) = 
-        let mutable lastLocation = None
-        let onChange _ =
-            match lastLocation with
-            | Some href when href = window.location.href -> ()
-            | _ ->
-                lastLocation <- Some window.location.href
-                Change window.location |> dispatch
-            |> box
-                
-        window.addEventListener_popstate(unbox onChange)
-        window.addEventListener_hashchange(unbox onChange)
-        window.addEventListener(Navigation.NavigatedEvent, unbox onChange)
+        let locationChanges (dispatch:Dispatch<_ Navigable>) = 
+            let mutable lastLocation = None
+            let onChange _ =
+                match lastLocation with
+                | Some href when href = window.location.href -> ()
+                | _ ->
+                    lastLocation <- Some window.location.href
+                    Change window.location |> dispatch
+                |> box
+                    
+            window.addEventListener_popstate(unbox onChange)
+            window.addEventListener_hashchange(unbox onChange)
+            window.addEventListener(Navigation.NavigatedEvent, unbox onChange)
+        
+        let subs model =
+            Cmd.batch
+              [ [locationChanges]
+                program.subscribe model |> Cmd.map UserMsg ]
+        
+        let init () = 
+            program.init (parser window.location) |> map
+        
+        { init = init 
+          update = update
+          subscribe = subs
+          onError = program.onError
+          setState = fun model dispatch -> program.setState model (UserMsg >> dispatch) 
+          view = fun model dispatch -> program.view model (UserMsg >> dispatch) }
     
-    let subs model =
-        Cmd.batch
-          [ [locationChanges]
-            program.subscribe model |> Cmd.map UserMsg ]
-    
-    let init () = 
-        program.init (parser window.location) |> map
-    
-    { init = init 
-      update = update
-      subscribe = subs
-      onError = program.onError
-      setState = fun model dispatch -> program.setState model (UserMsg >> dispatch) 
-      view = fun model dispatch -> program.view model (UserMsg >> dispatch) }
-    
-    
-
+  
