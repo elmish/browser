@@ -32,4 +32,4 @@ samples/react-native/navigation/windows/
 *.nupkg
 Meta.props
 temp
-docs/output
+docs/outputpaket-files

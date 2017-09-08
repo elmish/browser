@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Routing and navigation for browser apps
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Elmish browser extensions: UrlParser and Navigation"/>
+    <meta name="author" content="Eugene Tolmachev"/>
+
+    <script src="https://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
+
+    <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/browser/content/style_light.css" />
+    <script type="text/javascript" src="https://fable-elmish.github.io/browser/content/tips.js"></script>
+    <style>span.l { display: none }</style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="https://fable-elmish.github.io">fable-elmish</a></li>
+          <li><a href="http://fable.io">fable</a></li>
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+        </ul>
+        <h3 class="muted"><a href="https://fable-elmish.github.io/browser/index.html">elmish-browser</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1><a name="Routing-and-navigation-for-browser-apps" class="anchor" href="#Routing-and-navigation-for-browser-apps">Routing and navigation for browser apps</a></h1>
+<p>This library helps you turn URLs into nicely structured data, handle browser address change events and manipulate browser history directly.</p>
+<h2><a name="Installation" class="anchor" href="#Installation">Installation</a></h2>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip"><code lang="shell">paket add nuget Fable.Elmish.Browser
+</code></pre></td></tr></table>
+<h2><a name="Routing" class="anchor" href="#Routing">Routing</a></h2>
+<p>Intercept browser address changes and feed them into the dispatch loop.</p>
+<p>Usage:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="i">Browser</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">Navigation</span>
+
+<span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="f">mkProgram</span> <span class="i">init</span> <span class="i">update</span> <span class="i">view</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 7)" onmouseover="showTip(event, 'fs4', 7)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs6', 8)" onmouseover="showTip(event, 'fs6', 8)" class="f">toNavigable</span> <span class="i">parser</span> <span class="i">urlUpdate</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs4', 9)" onmouseover="showTip(event, 'fs4', 9)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs7', 10)" onmouseover="showTip(event, 'fs7', 10)" class="f">run</span>
+</code></pre></td>
+</tr>
+</table>
+<p>For more information see the <a href="routing.html">routing tutorial</a>.</p>
+<h2><a name="Navigation" class="anchor" href="#Navigation">Navigation</a></h2>
+<p>Manipulate the browser's navigation and history.</p>
+<p>Usage:</p>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 11)" onmouseover="showTip(event, 'fs1', 11)" class="i">Elmish</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 12)" onmouseover="showTip(event, 'fs2', 12)" class="i">Browser</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs3', 13)" onmouseover="showTip(event, 'fs3', 13)" class="i">Navigation</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs8', 14)" onmouseover="showTip(event, 'fs8', 14)" class="f">update</span> <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">model</span> <span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">msg</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs9', 17)" onmouseover="showTip(event, 'fs9', 17)" class="i">model</span>, <span onmouseout="hideTip(event, 'fs11', 18)" onmouseover="showTip(event, 'fs11', 18)" class="t">Navigation</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="f">newUrl</span> <span class="s">&quot;some_other_location&quot;</span>
+</code></pre></td>
+</tr>
+</table>
+<p>For details see the <a href="navigation.html##Direct-history-manipulation"><code>Navigation</code></a> module.</p>
+
+<div class="tip" id="fs1">namespace Elmish</div>
+<div class="tip" id="fs2">namespace Elmish.Browser</div>
+<div class="tip" id="fs3">namespace Elmish.Browser.Navigation</div>
+<div class="tip" id="fs4">Multiple items<br />module Program<br /><br />from Elmish.Browser.Navigation<br /><br />--------------------<br />module Program<br /><br />from Elmish<br /><br />--------------------<br />type Program&lt;&#39;arg,&#39;model,&#39;msg,&#39;view&gt; =<br />&#160;&#160;{init: &#39;arg -&gt; &#39;model * Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;update: &#39;msg -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;subscribe: &#39;model -&gt; Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;view: &#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; &#39;view;<br />&#160;&#160;&#160;setState: &#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; unit;<br />&#160;&#160;&#160;onError: string * exn -&gt; unit;}<br /><br />Full name: Elmish.Program&lt;_,_,_,_&gt;</div>
+<div class="tip" id="fs5">val mkProgram : init:(&#39;arg -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; update:(&#39;msg -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; view:(&#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; &#39;view) -&gt; Program&lt;&#39;arg,&#39;model,&#39;msg,&#39;view&gt;<br /><br />Full name: Elmish.Program.mkProgram</div>
+<div class="tip" id="fs6"></div>
+<div class="tip" id="fs7">val run : program:Program&lt;unit,&#39;model,&#39;msg,&#39;view&gt; -&gt; unit<br /><br />Full name: Elmish.Program.run</div>
+<div class="tip" id="fs8">val update : model:&#39;a -&gt; msg:&#39;b -&gt; &#39;a * Cmd&lt;&#39;c&gt;<br /><br />Full name: Index.update</div>
+<div class="tip" id="fs9">val model : &#39;a</div>
+<div class="tip" id="fs10">val msg : &#39;b</div>
+<div class="tip" id="fs11">module Navigation<br /><br />from Elmish.Browser.Navigation</div>
+<div class="tip" id="fs12">val newUrl : newUrl:string -&gt; Cmd&lt;&#39;a&gt;<br /><br />Full name: Elmish.Browser.Navigation.Navigation.newUrl</div>
+
+        </div>
+        <div class="span3">
+          <img src="https://fable-elmish.github.io/browser/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
+            <li class="nav-header">elmish-browser</li>
+            <li><a href="https://github.com/fable-elmish/browser">Source Code on GitHub</a></li>
+            <li class="nav-header">Tutorials</li>
+            <li><a href="https://fable-elmish.github.io/browser/routing.html">Parsing routes</a></li>
+            <li><a href="https://fable-elmish.github.io/browser/queries.html">Query parameters</a></li>
+            <li class="nav-header">Modules</li>
+            <li><a href="https://fable-elmish.github.io/browser/parser.html">Parser</a></li>
+            <li><a href="https://fable-elmish.github.io/browser/navigation.html">Navigation</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>
