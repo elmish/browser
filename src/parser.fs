@@ -39,7 +39,7 @@ type Parser<'a,'b> = State<'a> -> State<'b> list
 
 
 (** 
-#### Parse segements
+#### Parse segments
 Create a custom path segment parser. You can use it to define something like “only CSS files” like this:
 ```
     let css =
