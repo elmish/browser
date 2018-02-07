@@ -53,17 +53,10 @@ Target "Build" (fun _ ->
 let release = LoadReleaseNotes "RELEASE_NOTES.md"
 
 Target "Meta" (fun _ ->
-    [ "<Project xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">"
-      "<PropertyGroup>"
-      "<Description>Elmish extensions for Fable apps targeting web browsers</Description>"
-      sprintf "<PackageProjectUrl>http://%s.github.io/%s</PackageProjectUrl>" gitOwner gitName
-      "<PackageLicenseUrl>https://raw.githubusercontent.com/fable-elmish/browser/master/LICENSE.md</PackageLicenseUrl>"
-      "<PackageIconUrl>https://raw.githubusercontent.com/fable-elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>"
-      sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
-      "<PackageTags>fable;elmish;fsharp</PackageTags>"
-      "<Authors>Eugene Tolmachev</Authors>"
-      sprintf "<Version>%s</Version>" (string release.SemVer)
-      "</PropertyGroup>"
+    [ "<Project>"
+      "    <PropertyGroup>"
+      sprintf "        <Version>%s</Version>" (string release.SemVer)
+      "    </PropertyGroup>"
       "</Project>"]
     |> WriteToFile false "Meta.props"
 )
