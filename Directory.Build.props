@@ -1,0 +1,12 @@
+<Project>
+    <PropertyGroup>
+        <Description>Elmish extensions for Fable apps targeting web browsers</Description>
+        <PackageProjectUrl>http://fable-elmish.github.io/browser</PackageProjectUrl>
+        <PackageLicenseUrl>https://raw.githubusercontent.com/fable-elmish/browser/master/LICENSE.md</PackageLicenseUrl>
+        <PackageIconUrl>https://raw.githubusercontent.com/fable-elmish/elmish/master/docs/files/img/logo.png</PackageIconUrl>
+        <RepositoryUrl>https://github.com/fable-elmish/browser</RepositoryUrl>
+        <PackageTags>fable;elmish;fsharp</PackageTags>
+        <Authors>Eugene Tolmachev</Authors>
+    </PropertyGroup>
+    <Import Project="$(MSBuildThisFileDirectory)\Meta.props" Condition="exists('$(MSBuildThisFileDirectory)\Meta.props')" />
+</Project>
