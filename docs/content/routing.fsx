@@ -118,6 +118,8 @@ Program.mkProgram init update view
 
 (**
 
+Note that `ìnit` takes the route as an argument, and will default to `unit` if no routing is provided. If you add routing to an existing application you will therefore most likely need to change `init` for the types to match up. For now, just replacing `()` with `_` should suffice.
+
 ### Working with full (HTML5) and hash-based URLs
 `parseHash` function works with "hashbang" URLs, i.e. everything after the '#' symbol, while `parsePath` works with the entire location.
 The query for a hashbang URL never leaves the browser and can appear in traditional tags like `<a>`. 
