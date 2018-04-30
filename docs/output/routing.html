@@ -12,19 +12,19 @@
     <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
     <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet"/>
 
-    <link type="text/css" rel="stylesheet" href="https://fable-elmish.github.io/browser/content/style_light.css" />
-    <script type="text/javascript" src="https://fable-elmish.github.io/browser/content/tips.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://elmish.github.io/browser/content/style_light.css" />
+    <script type="text/javascript" src="https://elmish.github.io/browser/content/tips.js"></script>
     <style>span.l { display: none }</style>
   </head>
   <body>
     <div class="container">
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li><a href="https://fable-elmish.github.io">fable-elmish</a></li>
+          <li><a href="https://elmish.github.io">elmish</a></li>
           <li><a href="http://fable.io">fable</a></li>
           <li><a href="http://fsharp.org">fsharp.org</a></li>
         </ul>
-        <h3 class="muted"><a href="https://fable-elmish.github.io/browser/index.html">elmish-browser</a></h3>
+        <h3 class="muted"><a href="https://elmish.github.io/browser/index.html">elmish-browser</a></h3>
       </div>
       <hr />
       <div class="row">
@@ -179,8 +179,8 @@ If the URL is valid, we just update our model or issue a command, otherwise we m
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 100)" onmouseover="showTip(event, 'fs1', 100)" class="i">Elmish</span>
 
 <span onmouseout="hideTip(event, 'fs40', 101)" onmouseover="showTip(event, 'fs40', 101)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs41', 102)" onmouseover="showTip(event, 'fs41', 102)" class="f">mkProgram</span> <span class="i">init</span> <span class="i">update</span> <span class="i">view</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs40', 103)" onmouseover="showTip(event, 'fs40', 103)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 104)" onmouseover="showTip(event, 'fs42', 104)" class="f">toNavigable</span> (<span onmouseout="hideTip(event, 'fs43', 105)" onmouseover="showTip(event, 'fs43', 105)" class="f">parseHash</span> <span onmouseout="hideTip(event, 'fs13', 106)" onmouseover="showTip(event, 'fs13', 106)" class="f">route</span>) <span onmouseout="hideTip(event, 'fs44', 107)" onmouseover="showTip(event, 'fs44', 107)" class="f">urlUpdate</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs40', 108)" onmouseover="showTip(event, 'fs40', 108)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs45', 109)" onmouseover="showTip(event, 'fs45', 109)" class="f">run</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs40', 103)" onmouseover="showTip(event, 'fs40', 103)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs42', 104)" onmouseover="showTip(event, 'fs42', 104)" class="f">toNavigable</span> (<span onmouseout="hideTip(event, 'fs42', 105)" onmouseover="showTip(event, 'fs42', 105)" class="i">parseHash</span> <span onmouseout="hideTip(event, 'fs13', 106)" onmouseover="showTip(event, 'fs13', 106)" class="i">route</span>) <span onmouseout="hideTip(event, 'fs43', 107)" onmouseover="showTip(event, 'fs43', 107)" class="i">urlUpdate</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs40', 108)" onmouseover="showTip(event, 'fs40', 108)" class="t">Program</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs44', 109)" onmouseover="showTip(event, 'fs44', 109)" class="f">run</span>
 </code></pre></td>
 </tr>
 </table>
@@ -232,23 +232,22 @@ To keep the request local you have to use <code>Navigation</code> module for all
 <div class="tip" id="fs39">val modifyUrl : newUrl:string -&gt; Elmish.Cmd&lt;&#39;a&gt;<br /><br />Full name: Elmish.Browser.Navigation.Navigation.modifyUrl</div>
 <div class="tip" id="fs40">Multiple items<br />module Program<br /><br />from Elmish<br /><br />--------------------<br />module Program<br /><br />from Elmish.Browser.Navigation<br /><br />--------------------<br />type Program&lt;&#39;arg,&#39;model,&#39;msg,&#39;view&gt; =<br />&#160;&#160;{init: &#39;arg -&gt; &#39;model * Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;update: &#39;msg -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;subscribe: &#39;model -&gt; Cmd&lt;&#39;msg&gt;;<br />&#160;&#160;&#160;view: &#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; &#39;view;<br />&#160;&#160;&#160;setState: &#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; unit;<br />&#160;&#160;&#160;onError: string * exn -&gt; unit;}<br /><br />Full name: Elmish.Program&lt;_,_,_,_&gt;</div>
 <div class="tip" id="fs41">val mkProgram : init:(&#39;arg -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; update:(&#39;msg -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; view:(&#39;model -&gt; Dispatch&lt;&#39;msg&gt; -&gt; &#39;view) -&gt; Program&lt;&#39;arg,&#39;model,&#39;msg,&#39;view&gt;<br /><br />Full name: Elmish.Program.mkProgram</div>
-<div class="tip" id="fs42">val toNavigable : parser:Parser&lt;&#39;a&gt; -&gt; urlUpdate:(&#39;a -&gt; &#39;model -&gt; &#39;model * Cmd&lt;&#39;msg&gt;) -&gt; program:Program&lt;&#39;a,&#39;model,&#39;msg,&#39;view&gt; -&gt; Program&lt;unit,&#39;model,Navigable&lt;&#39;msg&gt;,&#39;view&gt;<br /><br />Full name: Elmish.Browser.Navigation.Program.toNavigable</div>
-<div class="tip" id="fs43">val parseHash : parser:Parser&lt;(&#39;a -&gt; &#39;a),&#39;a&gt; -&gt; location:Fable.Import.Browser.Location -&gt; &#39;a option<br /><br />Full name: Elmish.Browser.UrlParser.parseHash</div>
-<div class="tip" id="fs44">val urlUpdate : result:Option&lt;Route&gt; -&gt; model:Model -&gt; Model * Sub&lt;&#39;a&gt; list<br /><br />Full name: Routing.urlUpdate</div>
-<div class="tip" id="fs45">val run : program:Program&lt;unit,&#39;model,&#39;msg,&#39;view&gt; -&gt; unit<br /><br />Full name: Elmish.Program.run</div>
+<div class="tip" id="fs42"></div>
+<div class="tip" id="fs43">val urlUpdate : result:Option&lt;Route&gt; -&gt; model:Model -&gt; Model * Sub&lt;&#39;a&gt; list<br /><br />Full name: Routing.urlUpdate</div>
+<div class="tip" id="fs44">val run : program:Program&lt;unit,&#39;model,&#39;msg,&#39;view&gt; -&gt; unit<br /><br />Full name: Elmish.Program.run</div>
 
         </div>
         <div class="span3">
-          <img src="https://fable-elmish.github.io/browser/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
+          <img src="https://elmish.github.io/browser/img/logo.png" alt="F# Project" style="width:150px;margin:10px" />  
           <ul class="nav nav-list" id="menu" style="margin-top: 20px;">
             <li class="nav-header">elmish-browser</li>
-            <li><a href="https://github.com/fable-elmish/browser">Source Code on GitHub</a></li>
+            <li><a href="https://github.com/elmish/browser">Source Code on GitHub</a></li>
             <li class="nav-header">Tutorials</li>
-            <li><a href="https://fable-elmish.github.io/browser/routing.html">Parsing routes</a></li>
-            <li><a href="https://fable-elmish.github.io/browser/queries.html">Query parameters</a></li>
+            <li><a href="https://elmish.github.io/browser/routing.html">Parsing routes</a></li>
+            <li><a href="https://elmish.github.io/browser/queries.html">Query parameters</a></li>
             <li class="nav-header">Modules</li>
-            <li><a href="https://fable-elmish.github.io/browser/parser.html">Parser</a></li>
-            <li><a href="https://fable-elmish.github.io/browser/navigation.html">Navigation</a></li>
+            <li><a href="https://elmish.github.io/browser/parser.html">Parser</a></li>
+            <li><a href="https://elmish.github.io/browser/navigation.html">Navigation</a></li>
           </ul>
         </div>
       </div>

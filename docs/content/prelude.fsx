@@ -1,7 +1,6 @@
 ﻿(*** hide ***)
 #I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Core/lib/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
+#I "../../.paket/load/netstandard1.6"
 #r "Fable.Core.dll"
 #r "Fable.Elmish.dll"
 #r "Fable.Elmish.Browser.dll"

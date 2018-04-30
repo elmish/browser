@@ -562,22 +562,22 @@ should appear first.</p>
     <span class="o">|&gt;</span> <span class="i">parser</span>
     <span class="o">|&gt;</span> <span class="i">parseHelp</span>
 
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs29', 76)" onmouseover="showTip(event, 'fs29', 76)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 77)" onmouseover="showTip(event, 'fs30', 77)" class="i">Import</span>
+<span class="k">open</span> <span class="i">Fable</span><span class="o">.</span><span class="i">Import</span>
 
-<span class="k">let</span> <span class="k">internal</span> <span class="i">toKeyValuePair</span> (<span class="i">segment</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 78)" onmouseover="showTip(event, 'fs4', 78)" class="i">string</span>) <span class="o">=</span>
+<span class="k">let</span> <span class="k">internal</span> <span class="i">toKeyValuePair</span> (<span class="i">segment</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 76)" onmouseover="showTip(event, 'fs4', 76)" class="i">string</span>) <span class="o">=</span>
     <span class="k">match</span> <span class="i">segment</span><span class="o">.</span><span class="i">Split</span>(<span class="s">&#39;=&#39;</span>) <span class="k">with</span>
     | [| <span class="i">key</span>; <span class="i">value</span> |] <span class="k">-&gt;</span>
-        <span onmouseout="hideTip(event, 'fs22', 79)" onmouseover="showTip(event, 'fs22', 79)" class="i">Option</span><span class="o">.</span><span class="i">tuple</span> (<span onmouseout="hideTip(event, 'fs22', 80)" onmouseover="showTip(event, 'fs22', 80)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">key</span>) (<span onmouseout="hideTip(event, 'fs22', 81)" onmouseover="showTip(event, 'fs22', 81)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">value</span>)
-    | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs27', 82)" onmouseover="showTip(event, 'fs27', 82)" class="i">None</span>
+        <span onmouseout="hideTip(event, 'fs22', 77)" onmouseover="showTip(event, 'fs22', 77)" class="i">Option</span><span class="o">.</span><span class="i">tuple</span> (<span onmouseout="hideTip(event, 'fs22', 78)" onmouseover="showTip(event, 'fs22', 78)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">key</span>) (<span onmouseout="hideTip(event, 'fs22', 79)" onmouseover="showTip(event, 'fs22', 79)" class="i">Option</span><span class="o">.</span><span class="i">ofFunc</span> <span class="i">JS</span><span class="o">.</span><span class="i">decodeURI</span> <span class="i">value</span>)
+    | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs27', 80)" onmouseover="showTip(event, 'fs27', 80)" class="i">None</span>
 
 
-<span class="k">let</span> <span class="k">internal</span> <span class="i">parseParams</span> (<span class="i">querystring</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 83)" onmouseover="showTip(event, 'fs4', 83)" class="i">string</span>) <span class="o">=</span>
+<span class="k">let</span> <span class="k">internal</span> <span class="i">parseParams</span> (<span class="i">querystring</span><span class="o">:</span><span onmouseout="hideTip(event, 'fs4', 81)" onmouseover="showTip(event, 'fs4', 81)" class="i">string</span>) <span class="o">=</span>
     <span class="i">querystring</span><span class="o">.</span><span class="i">Substring</span>(<span class="n">1</span>)<span class="o">.</span><span class="i">Split</span>(<span class="s">&#39;&amp;&#39;</span>)
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 84)" onmouseover="showTip(event, 'fs31', 84)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 85)" onmouseover="showTip(event, 'fs32', 85)" class="i">map</span> <span class="i">toKeyValuePair</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs31', 86)" onmouseover="showTip(event, 'fs31', 86)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 87)" onmouseover="showTip(event, 'fs33', 87)" class="i">choose</span> <span onmouseout="hideTip(event, 'fs19', 88)" onmouseover="showTip(event, 'fs19', 88)" class="i">id</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 89)" onmouseover="showTip(event, 'fs6', 89)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs34', 90)" onmouseover="showTip(event, 'fs34', 90)" class="i">ofSeq</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs29', 82)" onmouseover="showTip(event, 'fs29', 82)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 83)" onmouseover="showTip(event, 'fs30', 83)" class="i">map</span> <span class="i">toKeyValuePair</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs29', 84)" onmouseover="showTip(event, 'fs29', 84)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs31', 85)" onmouseover="showTip(event, 'fs31', 85)" class="i">choose</span> <span onmouseout="hideTip(event, 'fs19', 86)" onmouseover="showTip(event, 'fs19', 86)" class="i">id</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs6', 87)" onmouseover="showTip(event, 'fs6', 87)" class="i">Map</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs32', 88)" onmouseover="showTip(event, 'fs32', 88)" class="i">ofSeq</span>
 
-<span class="k">open</span> <span onmouseout="hideTip(event, 'fs29', 91)" onmouseover="showTip(event, 'fs29', 91)" class="i">Fable</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs30', 92)" onmouseover="showTip(event, 'fs30', 92)" class="i">Import</span><span class="o">.</span><span class="i">Browser</span>
+<span class="k">open</span> <span class="i">Fable</span><span class="o">.</span><span class="i">Import</span><span class="o">.</span><span class="i">Browser</span>
 </code></pre></td>
 </tr>
 </table>
@@ -606,15 +606,15 @@ path entirely.</p>
 <span class="l">10: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="i">parseHash</span> (<span class="i">parser</span><span class="o">:</span><span class="i">Parser</span><span class="o">&lt;</span>_,_<span class="o">&gt;</span>) (<span class="i">location</span><span class="o">:</span><span class="i">Location</span>) <span class="o">=</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 93)" onmouseover="showTip(event, 'fs35', 93)" class="i">hash</span>, <span class="i">search</span> <span class="o">=</span>
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs35', 94)" onmouseover="showTip(event, 'fs35', 94)" class="i">hash</span> <span class="o">=</span> <span class="i">location</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs35', 95)" onmouseover="showTip(event, 'fs35', 95)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span> <span class="n">1</span>
-        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs35', 96)" onmouseover="showTip(event, 'fs35', 96)" class="i">hash</span><span class="o">.</span><span class="i">Contains</span>(<span class="s">&quot;?&quot;</span>) <span class="k">then</span>
-            <span class="k">let</span> <span class="i">h</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 97)" onmouseover="showTip(event, 'fs35', 97)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span>(<span class="n">0</span>, <span onmouseout="hideTip(event, 'fs35', 98)" onmouseover="showTip(event, 'fs35', 98)" class="i">hash</span><span class="o">.</span><span class="i">IndexOf</span>(<span class="s">&quot;?&quot;</span>))
-            <span class="i">h</span>, <span onmouseout="hideTip(event, 'fs35', 99)" onmouseover="showTip(event, 'fs35', 99)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span>(<span class="i">h</span><span class="o">.</span><span class="i">Length</span>)
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 89)" onmouseover="showTip(event, 'fs33', 89)" class="i">hash</span>, <span class="i">search</span> <span class="o">=</span>
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 90)" onmouseover="showTip(event, 'fs33', 90)" class="i">hash</span> <span class="o">=</span> <span class="i">location</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs33', 91)" onmouseover="showTip(event, 'fs33', 91)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span> <span class="n">1</span>
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs33', 92)" onmouseover="showTip(event, 'fs33', 92)" class="i">hash</span><span class="o">.</span><span class="i">Contains</span>(<span class="s">&quot;?&quot;</span>) <span class="k">then</span>
+            <span class="k">let</span> <span class="i">h</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 93)" onmouseover="showTip(event, 'fs33', 93)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span>(<span class="n">0</span>, <span onmouseout="hideTip(event, 'fs33', 94)" onmouseover="showTip(event, 'fs33', 94)" class="i">hash</span><span class="o">.</span><span class="i">IndexOf</span>(<span class="s">&quot;?&quot;</span>))
+            <span class="i">h</span>, <span onmouseout="hideTip(event, 'fs33', 95)" onmouseover="showTip(event, 'fs33', 95)" class="i">hash</span><span class="o">.</span><span class="i">Substring</span>(<span class="i">h</span><span class="o">.</span><span class="i">Length</span>)
         <span class="k">else</span>
-            <span onmouseout="hideTip(event, 'fs35', 100)" onmouseover="showTip(event, 'fs35', 100)" class="i">hash</span>, <span class="s">&quot;?&quot;</span>
+            <span onmouseout="hideTip(event, 'fs33', 96)" onmouseover="showTip(event, 'fs33', 96)" class="i">hash</span>, <span class="s">&quot;?&quot;</span>
 
-    <span class="i">parse</span> <span class="i">parser</span> (<span onmouseout="hideTip(event, 'fs35', 101)" onmouseover="showTip(event, 'fs35', 101)" class="i">hash</span>) (<span class="i">parseParams</span> <span class="i">search</span>)
+    <span class="i">parse</span> <span class="i">parser</span> (<span onmouseout="hideTip(event, 'fs33', 97)" onmouseover="showTip(event, 'fs33', 97)" class="i">hash</span>) (<span class="i">parseParams</span> <span class="i">search</span>)
 </code></pre></td>
 </tr>
 </table>
@@ -647,13 +647,11 @@ path entirely.</p>
 <div class="tip" id="fs26">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
 <div class="tip" id="fs27">union case Option.None: Option&lt;&#39;T&gt;</div>
 <div class="tip" id="fs28">val ofArray : array:&#39;T [] -&gt; &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List.ofArray</div>
-<div class="tip" id="fs29">namespace Fable</div>
-<div class="tip" id="fs30">namespace Fable.Import</div>
-<div class="tip" id="fs31">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
-<div class="tip" id="fs32">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.map</div>
-<div class="tip" id="fs33">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.choose</div>
-<div class="tip" id="fs34">val ofSeq : elements:seq&lt;&#39;Key * &#39;T&gt; -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.ofSeq</div>
-<div class="tip" id="fs35">val hash : obj:&#39;T -&gt; int (requires equality)<br /><br />Full name: Microsoft.FSharp.Core.Operators.hash</div>
+<div class="tip" id="fs29">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs30">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.map</div>
+<div class="tip" id="fs31">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><br />Full name: Microsoft.FSharp.Collections.Seq.choose</div>
+<div class="tip" id="fs32">val ofSeq : elements:seq&lt;&#39;Key * &#39;T&gt; -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)<br /><br />Full name: Microsoft.FSharp.Collections.Map.ofSeq</div>
+<div class="tip" id="fs33">val hash : obj:&#39;T -&gt; int (requires equality)<br /><br />Full name: Microsoft.FSharp.Core.Operators.hash</div>
 
         </div>
         <div class="span3">
