@@ -581,7 +581,7 @@ GROUP Build
 RESTRICTION: == net46
 NUGET
   remote: https://www.nuget.org/api/v2
-    FAKE (4.63)
+    FAKE (4.64.12)
     FSharp.Compiler.Service (2.0.0.6)
     FSharp.Core (4.2.1) - content: none, redirects: force
     FSharp.Formatting (2.14.4)
@@ -592,5 +592,5 @@ NUGET
     Octokit (0.24)
 GITHUB
   remote: fsharp/FAKE
-    modules/Octokit/Octokit.fsx (81ed051995be6adee87931dfd1d7bf91a515d4db)
+    modules/Octokit/Octokit.fsx (7f99a9c4350b6b15a044254977c882574cd72b61)
       Octokit (>= 0.20)
