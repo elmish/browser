@@ -1,3 +1,7 @@
+### 2.0.0-beta-4
+
+* Fable 2 based v1 re-release
+
 ### 1.0.0
 
 * dotnet 2.0 SDK release
