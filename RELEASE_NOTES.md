@@ -1,3 +1,7 @@
+### 2.0.0-beta-5
+
+* Fable.Import.Browser update
+
 ### 2.0.0-beta-4
 
 * Fable 2 based v1 re-release
