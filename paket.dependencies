@@ -1,10 +1,10 @@
 source https://nuget.org/api/v2
 
 nuget FSharp.Core  redirects:force, content:none
-nuget Fable.Core prerelease
-nuget Fable.Import.Browser prerelease
-nuget Fable.PowerPack prerelease
-nuget Fable.Elmish prerelease
+nuget Fable.Core
+nuget Fable.Import.Browser
+nuget Fable.PowerPack
+nuget Fable.Elmish
 
 group Build
 framework: net46
