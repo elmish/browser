@@ -71,7 +71,7 @@ module Program =
             window.addEventListener_hashchange(unbox onChangeRef)
             window.addEventListener(Navigation.NavigatedEvent, unbox onChangeRef)
 
-        let unsubscribe _ =
+        let unsubscribe () =
             window.removeEventListener("popstate", unbox onChangeRef)
             window.removeEventListener("hashchange", unbox onChangeRef)
             window.removeEventListener(Navigation.NavigatedEvent, unbox onChangeRef)
