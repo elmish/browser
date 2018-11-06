@@ -1,3 +1,7 @@
+### 2.1.0-beta-1
+
+* Internal rework to help HMR module
+
 ### 2.0.0
 
 * Release stable
