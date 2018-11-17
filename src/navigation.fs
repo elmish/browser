@@ -105,7 +105,8 @@ module Program =
               subscribe = subs
               onError = program.onError
               setState = fun model dispatch -> program.setState model (UserMsg >> dispatch)
-              view = fun model dispatch -> program.view model (UserMsg >> dispatch) }
+              view = fun model dispatch -> program.view model (UserMsg >> dispatch)
+              syncDispatch = id }
 
     /// Add the navigation to a program made with `mkProgram` or `mkSimple`.
     /// urlUpdate: similar to `update` function, but receives parsed url instead of message as an input.
