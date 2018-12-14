@@ -67,8 +67,8 @@ module Program =
 
             onChangeRef <- onChange
 
-            window.addEventListener_popstate(unbox onChangeRef)
-            window.addEventListener_hashchange(unbox onChangeRef)
+            window.addEventListener("popstate", unbox onChangeRef)
+            window.addEventListener("hashchange", unbox onChangeRef)
             window.addEventListener(Navigation.NavigatedEvent, unbox onChangeRef)
 
         let unsubscribe () =
