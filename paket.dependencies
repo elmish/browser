@@ -2,10 +2,9 @@ source https://nuget.org/api/v2
 storage: none
 
 nuget FSharp.Core  redirects:force, content:none
-nuget Fable.Core
-nuget Fable.Import.Browser
-nuget Fable.PowerPack
-nuget fable.elmish 3.0.0-beta-2 beta
+nuget Fable.Core prerelease
+nuget Fable.Browser.Dom
+nuget fable.elmish prerelease
 
 group Build
 framework: net46
