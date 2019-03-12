@@ -1,4 +1,4 @@
 FSharp.Core
 Fable.Core
-Fable.Import.Browser
+Fable.Browser.Dom
 Fable.Elmish

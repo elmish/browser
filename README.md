@@ -19,5 +19,4 @@ In addition to providing query parsing capabilities, this port from Elm/url-pars
 - `parseHash` is already provided, just pass your parser as its arg
 - new `parsePath` works with entire url, not just the hash portion
 
-If you've been using `Result` type for other purposes, it is now available in F# 4.1 Core and is still available from Fable-PowerPack.
-
+If you've been using `Result` type for other purposes, it is now available in F# 4.1 Core.

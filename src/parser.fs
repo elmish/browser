@@ -8,7 +8,7 @@ single-page applications (SPAs) where you manage browser navigation yourself.
 module Elmish.Browser.UrlParser
 
 
-(** 
+(**
 #### Types
 *)
 
@@ -26,7 +26,7 @@ module internal State =
           unvisited = unvisited
           args = args
           value = value }
-          
+
   let map f { visited = visited; unvisited = unvisited; args = args; value = value } =
         { visited = visited
           unvisited = unvisited
@@ -38,7 +38,7 @@ module internal State =
 type Parser<'a,'b> = State<'a> -> State<'b> list
 
 
-(** 
+(**
 #### Parse segments
 Create a custom path segment parser. You can use it to define something like “only CSS files” like this:
 ```
@@ -111,7 +111,7 @@ let s str : Parser<_,_> =
 
 
 
-(** 
+(**
 #### Combining parsers
 Parse a path with multiple segments.
 
@@ -156,13 +156,13 @@ let inline (</>) (parseBefore:Parser<_,_>) (parseAfter:Parser<_,_>) =
 *)
 let map (subValue:'a) (parse:Parser<'a,'b>) : Parser<'b->'c,'c> =
     let inner { visited = visited; unvisited = unvisited; args = args; value = value } =
-        List.map (State.map value) 
+        List.map (State.map value)
         <| parse { visited = visited
                    unvisited = unvisited
                    args = args
                    value = subValue }
     inner
-  
+
 
 
 (** Try a bunch of different path parsers.
@@ -214,7 +214,7 @@ let top state=
 
 
 
-(** 
+(**
 #### Query parameters
 Turn query parameters like `?name=tom&age=42` into nice data.
 
@@ -267,7 +267,7 @@ let stringParam name =
     customParam name id
 
 let internal intParamHelp =
-    Option.bind 
+    Option.bind
         (fun value ->
             match System.Int32.TryParse value with
             | (true,x) -> Some x
@@ -319,7 +319,7 @@ let parse (parser:Parser<'a->'a,'a>) url args =
     |> parser
     |> parseHelp
 
-open Fable.Import
+open Fable.Core
 
 let internal toKeyValuePair (segment:string) =
     match segment.Split('=') with
@@ -334,9 +334,9 @@ let internal parseParams (querystring:string) =
     |> Seq.choose id
     |> Map.ofSeq
 
-open Fable.Import.Browser
+open Browser.Types
 
-(** 
+(**
 #### Parsers
 Parse based on `location.pathname` and `location.search`. This parser
 ignores the hash entirely.

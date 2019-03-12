@@ -5,7 +5,8 @@ It converts changes in the address bar into messages and provides functions for 
 *)
 namespace Elmish.Browser.Navigation
 
-open Fable.Import.Browser
+open Browser
+open Browser.Types
 open Elmish
 
 (**
@@ -32,8 +33,7 @@ module Navigation =
     /// Push new location into history and navigate there
     let newUrl (newUrl:string):Cmd<_> =
         [fun _ -> history.pushState((), "", newUrl)
-                  let ev = document.createEvent_CustomEvent()
-                  ev.initCustomEvent (NavigatedEvent, true, true, obj())
+                  let ev = CustomEvent.Create(NavigatedEvent)
                   window.dispatchEvent ev
                   |> ignore ]
 
