@@ -10,7 +10,7 @@ npm-debug.log
 samples/**/public
 
 .vscode/
-
+.ionide/
 # F#
 .fake/
 packages/

@@ -84,29 +84,30 @@ module Program =
             let map (model, cmd) =
                 model, cmd |> Cmd.map UserMsg
 
-            let update msg model =
+            let update userUpdate msg model =
                 match msg with
                 | Change location ->
                     urlUpdate (parser location) model
                 | UserMsg userMsg ->
-                    program.update userMsg model
+                    userUpdate userMsg model
                 |> map
 
-            let subs model =
+            let subs userSubscribe model =
                 Cmd.batch
                   [ [ onLocationChange ]
-                    program.subscribe model |> Cmd.map UserMsg ]
+                    userSubscribe model |> Cmd.map UserMsg ]
 
-            let init () =
-                program.init (parser window.location) |> map
+            let init userInit () =
+                userInit (parser window.location) |> map
 
-            { init = init
-              update = update
-              subscribe = subs
-              onError = program.onError
-              setState = fun model dispatch -> program.setState model (UserMsg >> dispatch)
-              view = fun model dispatch -> program.view model (UserMsg >> dispatch)
-              syncDispatch = id }
+            let setState userSetState model dispatch =
+                userSetState model (UserMsg >> dispatch)
+
+            let view userView model dispatch =
+                userView model (UserMsg >> dispatch)
+            
+            program
+            |> Program.map init update view setState subs
 
     /// Add the navigation to a program made with `mkProgram` or `mkSimple`.
     /// urlUpdate: similar to `update` function, but receives parsed url instead of message as an input.

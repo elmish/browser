@@ -1,3 +1,7 @@
+### 3.0.0-beta-3
+
+* Elmish 3 opaque `Program` support
+
 ### 3.0.0-beta-2
 
 * Fable 3 support courtesy of Alfonso
