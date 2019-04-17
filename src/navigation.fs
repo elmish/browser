@@ -3,7 +3,7 @@
 This port of the Elm library is about treating the address bar as an input to your program.
 It converts changes in the address bar into messages and provides functions for manipulation of the browser history.
 *)
-namespace Elmish.Browser.Navigation
+namespace Elmish.Navigation
 
 open Browser
 open Browser.Types

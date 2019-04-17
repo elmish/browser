@@ -1,9 +1,9 @@
-namespace Elmish.Browser
+namespace Elmish
 
 
 [<RequireQualifiedAccess>]
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
-module Option =
+module internal Option =
 
     let tuple a b =
         match (a,b) with
