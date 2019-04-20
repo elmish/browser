@@ -1,6 +1,5 @@
 ﻿(*** hide ***)
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../.paket/load/netstandard1.6"
+#I "../../src/bin/Release/netstandard2.0"
 #r "Fable.Core.dll"
 #r "Fable.Elmish.dll"
 #r "Fable.Elmish.Browser.dll"
@@ -12,7 +11,7 @@
 This port of the Elm library is about treating the address bar as an input to your program.
 It converts changes in the address bar into messages and provides functions for manipulation of the browser history.
 *)
-namespace Elmish.Browser.Navigation
+namespace Elmish.Navigation
 
 open Browser
 open Browser.Types
@@ -58,23 +57,13 @@ Treat user's program as a child component, by wrapping it and handling navigatio
 [<CompilationRepresentation(CompilationRepresentationFlags.ModuleSuffix)>]
 [<RequireQualifiedAccess>]
 module Program =
-    /// Add the navigation to a program made with `mkProgram` or `mkSimple`.
-    /// urlUpdate: similar to `update` function, but receives parsed url instead of message as an input.
-    let toNavigable (parser : Parser<'a>)
-                  (urlUpdate : 'a->'model->('model * Cmd<'msg>))
-                  (program : Program<'a,'model,'msg,'view>) =
-        let map (model, cmd) =
-            model, cmd |> Cmd.map UserMsg
 
-        let update msg model =
-            match msg with
-            | Change location ->
-                urlUpdate (parser location) model
-            | UserMsg userMsg ->
-                program.update userMsg model
-            |> map
+    module Internal =
+        let mutable private onChangeRef : obj -> obj =
+            fun _ ->
+                failwith "`onChangeRef` has not been itialized.\nPlease make sure you used Elmish.Browser.Navigation.Program.Internal.subscribe"
 
-        let locationChanges (dispatch:Dispatch<_ Navigable>) =
+        let subscribe (dispatch:Dispatch<_ Navigable>) =
             let mutable lastLocation = None
             let onChange _ =
                 match lastLocation with
@@ -84,23 +73,54 @@ module Program =
                     Change window.location |> dispatch
                 |> box
 
-            window.addEventListener_popstate(unbox onChange)
-            window.addEventListener_hashchange(unbox onChange)
-            window.addEventListener(Navigation.NavigatedEvent, unbox onChange)
+            onChangeRef <- onChange
 
-        let subs model =
-            Cmd.batch
-              [ [locationChanges]
-                program.subscribe model |> Cmd.map UserMsg ]
+            window.addEventListener("popstate", unbox onChangeRef)
+            window.addEventListener("hashchange", unbox onChangeRef)
+            window.addEventListener(Navigation.NavigatedEvent, unbox onChangeRef)
 
-        let init () =
-            program.init (parser window.location) |> map
+        let unsubscribe () =
+            window.removeEventListener("popstate", unbox onChangeRef)
+            window.removeEventListener("hashchange", unbox onChangeRef)
+            window.removeEventListener(Navigation.NavigatedEvent, unbox onChangeRef)
 
-        { init = init
-          update = update
-          subscribe = subs
-          onError = program.onError
-          setState = fun model dispatch -> program.setState model (UserMsg >> dispatch)
-          view = fun model dispatch -> program.view model (UserMsg >> dispatch) }
+        let toNavigableWith (parser : Parser<'a>)
+                            (urlUpdate : 'a->'model->('model * Cmd<'msg>))
+                            (program : Program<'a,'model,'msg,'view>)
+                            (onLocationChange : Dispatch<Navigable<'msg>> -> unit) =
 
+            let map (model, cmd) =
+                model, cmd |> Cmd.map UserMsg
 
+            let update userUpdate msg model =
+                match msg with
+                | Change location ->
+                    urlUpdate (parser location) model
+                | UserMsg userMsg ->
+                    userUpdate userMsg model
+                |> map
+
+            let subs userSubscribe model =
+                Cmd.batch
+                  [ [ onLocationChange ]
+                    userSubscribe model |> Cmd.map UserMsg ]
+
+            let init userInit () =
+                userInit (parser window.location) |> map
+
+            let setState userSetState model dispatch =
+                userSetState model (UserMsg >> dispatch)
+
+            let view userView model dispatch =
+                userView model (UserMsg >> dispatch)
+            
+            program
+            |> Program.map init update view setState subs
+
+    /// Add the navigation to a program made with `mkProgram` or `mkSimple`.
+    /// urlUpdate: similar to `update` function, but receives parsed url instead of message as an input.
+    let toNavigable (parser : Parser<'a>)
+                    (urlUpdate : 'a->'model->('model * Cmd<'msg>))
+                    (program : Program<'a,'model,'msg,'view>) =
+
+        Internal.toNavigableWith parser urlUpdate program Internal.subscribe

@@ -12,11 +12,8 @@ For more information see [the docs](https://elmish.github.io/browser).
 paket add Fable.Elmish.Browser
 ```
 
-## Porting from previous version of the parser
-In addition to providing query parsing capabilities, this port from Elm/url-parser makes a few changes to the API:
-- `format` has been renamed `map`
-- `Result` return type has been replaced with `Option`
-- `parseHash` is already provided, just pass your parser as its arg
-- new `parsePath` works with entire url, not just the hash portion
+## Building
 
-If you've been using `Result` type for other purposes, it is now available in F# 4.1 Core.
+.NET Core SDK and fake tool installed globablly are required.
+
+> `fake build`

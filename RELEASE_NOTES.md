@@ -1,3 +1,7 @@
+### 3.0.0
+
+* Releasing 3.0
+
 ### 3.0.0-beta-4
 
 * Removing `Browser` namespace to avoid conflict with Fable.Browser

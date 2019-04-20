@@ -2,16 +2,6 @@ source https://nuget.org/api/v2
 storage: none
 
 nuget FSharp.Core  redirects:force, content:none
-nuget Fable.Core prerelease
-nuget Fable.Browser.Dom prerelease
-nuget fable.elmish prerelease
-
-group Build
-framework: net46
-
-    source https://nuget.org/api/v2
-    nuget FSharp.Core  redirects:force, content:none
-    nuget FAKE
-    nuget FSharp.Formatting
-
-    github fsharp/FAKE modules/Octokit/Octokit.fsx
+nuget Fable.Core
+nuget Fable.Browser.Dom
+nuget fable.elmish
