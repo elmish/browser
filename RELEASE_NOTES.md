@@ -1,3 +1,7 @@
+### 3.0.1
+
+* Span/string disambiguation
+
 ### 3.0.0
 
 * Releasing 3.0

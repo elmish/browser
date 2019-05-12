@@ -50,7 +50,7 @@ Create a custom path segment parser. You can use it to define something like “
           Error "Does not end with .css"
 ```
 *)
-let custom tipe stringToSomething : Parser<_,_> =
+let custom tipe (stringToSomething: string->Result<_,_>) : Parser<_,_> =
     let inner { visited = visited; unvisited = unvisited; args = args; value = value } =
         match unvisited with
         | [] -> []
@@ -248,7 +248,7 @@ let inline (<?>) (parser:Parser<_,_>) (queryParser:QueryParser<_,_>) : Parser<_,
     val enumParam : string -> Map<string,a> -> QueryParser (Option a -> b) b
 ```
 *)
-let customParam (key: string) (func:string option -> _) : QueryParser<_,_> =
+let customParam (key: string) (func: string option -> _) : QueryParser<_,_> =
     let inner { visited = visited; unvisited = unvisited; args = args; value = value } =
         [ State.mkState visited unvisited args (value (func (Map.tryFind key args))) ]
     inner
@@ -268,7 +268,7 @@ let stringParam name =
 
 let internal intParamHelp =
     Option.bind
-        (fun value ->
+        (fun (value: string) ->
             match System.Int32.TryParse value with
             | (true,x) -> Some x
             | _ -> None)
@@ -311,7 +311,7 @@ let internal splitUrl (url:string) =
         segments
 
 /// parse a given part of the location
-let parse (parser:Parser<'a->'a,'a>) url args =
+let parse (parser: Parser<'a->'a,'a>) url args =
     { visited = []
       unvisited = splitUrl url
       args = args
@@ -321,14 +321,14 @@ let parse (parser:Parser<'a->'a,'a>) url args =
 
 open Fable.Core
 
-let internal toKeyValuePair (segment:string) =
+let internal toKeyValuePair (segment: string) =
     match segment.Split('=') with
     | [| key; value |] ->
         Option.tuple (Option.ofFunc JS.decodeURI key) (Option.ofFunc JS.decodeURI value)
     | _ -> None
 
 
-let internal parseParams (querystring:string) =
+let internal parseParams (querystring: string) =
     querystring.Substring(1).Split('&')
     |> Seq.map toKeyValuePair
     |> Seq.choose id
@@ -341,13 +341,13 @@ open Browser.Types
 Parse based on `location.pathname` and `location.search`. This parser
 ignores the hash entirely.
 *)
-let parsePath (parser:Parser<_,_>) (location:Location) =
+let parsePath (parser: Parser<_,_>) (location: Location) =
     parse parser location.pathname (parseParams location.search)
 
 (** Parse based on `location.hash`. This parser ignores the normal
 path entirely.
 *)
-let parseHash (parser:Parser<_,_>) (location:Location) =
+let parseHash (parser: Parser<_,_>) (location: Location) =
     let hash, search =
         let hash = location.hash.Substring 1
         if hash.Contains("?") then
@@ -356,4 +356,4 @@ let parseHash (parser:Parser<_,_>) (location:Location) =
         else
             hash, "?"
 
-    parse parser (hash) (parseParams search)
+    parse parser hash (parseParams search)
