@@ -134,7 +134,7 @@ Parse a path with multiple segments.
     /cats/         ==>  None
 </pre>
 *)
-let inline (</>) (parseBefore:Parser<_,_>) (parseAfter:Parser<_,_>) =
+let inline (</>) (parseBefore: Parser<_,_>) (parseAfter: Parser<_,_>) =
   fun state ->
     List.collect parseAfter (parseBefore state)
 
@@ -154,7 +154,7 @@ let inline (</>) (parseBefore:Parser<_,_>) (parseAfter:Parser<_,_>) =
     /user/sam/             ==>  None
 </pre>
 *)
-let map (subValue:'a) (parse:Parser<'a,'b>) : Parser<'b->'c,'c> =
+let map (subValue: 'a) (parse: Parser<'a,'b>) : Parser<'b->'c,'c> =
     let inner { visited = visited; unvisited = unvisited; args = args; value = value } =
         List.map (State.map value)
         <| parse { visited = visited
@@ -238,7 +238,7 @@ type QueryParser<'a,'b> = State<'a> -> State<'b> list
     /blog/42            ==>  Some (BlogPost 42)
 </pre>
 *)
-let inline (<?>) (parser:Parser<_,_>) (queryParser:QueryParser<_,_>) : Parser<_,_> =
+let inline (<?>) (parser: Parser<_,_>) (queryParser:QueryParser<_,_>) : Parser<_,_> =
     fun state ->
         List.collect queryParser (parser state)
 
@@ -303,7 +303,7 @@ let rec internal parseHelp states =
         | _ ->
             parseHelp rest
 
-let internal splitUrl (url:string) =
+let internal splitUrl (url: string) =
     match List.ofArray <| url.Split([|'/'|]) with
     | "" :: segments ->
         segments
