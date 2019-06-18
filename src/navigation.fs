@@ -53,7 +53,7 @@ module Program =
     module Internal =
         let mutable private onChangeRef : obj -> obj =
             fun _ ->
-                failwith "`onChangeRef` has not been itialized.\nPlease make sure you used Elmish.Browser.Navigation.Program.Internal.subscribe"
+                failwith "`onChangeRef` has not been initialized.\nPlease make sure you used Elmish.Navigation.Program.Internal.subscribe"
 
         let subscribe (dispatch:Dispatch<_ Navigable>) =
             let mutable lastLocation = None

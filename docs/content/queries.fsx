@@ -18,7 +18,7 @@ Some examples:
 *)
 
 
-open Elmish.Browser.UrlParser
+open Elmish.UrlParser
 
 type PersonQuery = 
     { name: string
