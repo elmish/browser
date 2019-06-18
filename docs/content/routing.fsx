@@ -21,7 +21,7 @@ Some examples:
 
 #r "Fable.Elmish.Browser.dll"
 
-open Elmish.Browser.UrlParser
+open Elmish.UrlParser
 
 parse (s "blog" </> i32) "blog/42" // Some 42
 
@@ -90,7 +90,7 @@ type Model =
   { route : Route
     query : string }
 
-open Elmish.Browser.Navigation
+open Elmish.Navigation
 
 let urlUpdate (result:Option<Route>) model =
   match result with

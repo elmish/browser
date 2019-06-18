@@ -26,7 +26,7 @@ Intercept browser address changes and feed them into the dispatch loop.
 Usage:
 *)
 
-open Elmish.Browser.Navigation
+open Elmish.Navigation
 
 Program.mkProgram init update view
 |> Program.toNavigable parser urlUpdate
@@ -41,7 +41,7 @@ Manipulate the browser's navigation and history.
 Usage:
 *)
 
-open Elmish.Browser.Navigation
+open Elmish.Navigation
 
 let update model msg =
     model, Navigation.newUrl "some_other_location"
