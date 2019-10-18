@@ -332,7 +332,7 @@ open Fable.Core
 let internal toKeyValuePair (segment: string) =
     match segment.Split('=') with
     | [| key; value |] ->
-        Option.tuple (Option.ofFunc JS.decodeURI key) (Option.ofFunc JS.decodeURI value)
+        Option.tuple (Option.ofFunc JS.decodeURIComponent key) (Option.ofFunc JS.decodeURIComponent value)
     | _ -> None
 
 
