@@ -177,7 +177,7 @@ let map (subValue: 'a) (parse: Parser<'a,'b>) : Parser<'b->'c,'c> =
         [ map Search  (s "search" </> str)
           map Blog    (s "blog" </> i32)
           map User    (s "user" </> str)
-          map Comment (s "user" </> str </> "comments" </> i32) ]
+          map (fun u c -> Comment (u,c)) (s "user" </> str </> "comments" </> i32) ]
     parse route location
 ```
 <pre>
