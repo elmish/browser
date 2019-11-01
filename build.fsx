@@ -183,9 +183,9 @@ Target.create "Publish" ignore
   ==> "Restore"
   ==> "Build"
   ==> "Package"
+  ==> "PublishNuget"
   ==> "GenerateDocs"
   ==> "ReleaseDocs"
-  ==> "PublishNuget"
   ==> "Publish"
 
 

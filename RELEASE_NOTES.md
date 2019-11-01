@@ -1,3 +1,7 @@
+### 4.0.0-alpha-1
+
+* Support for v4 core
+
 ### 3.0.2
 
 * Use uriDecodeComponent by Alfonso

@@ -105,9 +105,13 @@ module Program =
 
             let view userView model dispatch =
                 userView model (UserMsg >> dispatch)
+
+            let termination (predicate,terminate) =
+                function UserMsg msg -> predicate msg | _ -> false
+                ,fun model -> unsubscribe(); terminate model
             
             program
-            |> Program.map init update view setState subs
+            |> Program.map init update view setState subs termination
 
     /// Add the navigation to a program made with `mkProgram` or `mkSimple`.
     /// urlUpdate: similar to `update` function, but receives parsed url instead of message as an input.

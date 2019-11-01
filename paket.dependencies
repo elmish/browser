@@ -4,4 +4,4 @@ storage: none
 nuget FSharp.Core  redirects:force, content:none
 nuget Fable.Core
 nuget Fable.Browser.Dom
-nuget fable.elmish
+nuget fable.elmish prerelease
