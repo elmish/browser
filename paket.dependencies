@@ -5,3 +5,4 @@ nuget FSharp.Core  redirects:force, content:none
 nuget Fable.Core
 nuget Fable.Browser.Dom
 nuget fable.elmish prerelease
+nuget fable.elmish.urlparser prerelease

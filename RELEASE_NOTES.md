@@ -1,3 +1,7 @@
+### 4.0.0-alpha-2
+
+* Depend on the split out UrlParser
+
 ### 4.0.0-alpha-1
 
 * Support for v4 core

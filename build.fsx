@@ -115,8 +115,6 @@ let copyFiles() =
     let header =
         Fake.Core.String.splitStr "\n" """(*** hide ***)
 #I "../../src/bin/Release/netstandard2.0"
-#r "Fable.Core.dll"
-#r "Fable.Elmish.dll"
 #r "Fable.Elmish.Browser.dll"
 
 (**
@@ -183,8 +181,8 @@ Target.create "Publish" ignore
   ==> "Restore"
   ==> "Build"
   ==> "Package"
-  ==> "PublishNuget"
   ==> "GenerateDocs"
+  ==> "PublishNuget"
   ==> "ReleaseDocs"
   ==> "Publish"
 

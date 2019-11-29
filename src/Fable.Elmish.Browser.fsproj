@@ -3,7 +3,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="prelude.fs" />
     <Compile Include="parser.fs" />
     <Compile Include="navigation.fs" />
   </ItemGroup>

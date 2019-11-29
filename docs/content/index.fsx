@@ -1,9 +1,7 @@
 (*** hide ***)
 // This block of code is omitted in the generated HTML documentation. Use 
 // it to define helpers that you do not want to show in the documentation.
-#I "../../src/bin/Debug/netstandard1.6"
-#I "../../packages/Fable.Elmish/lib/netstandard1.6"
-#r "Fable.Elmish.dll"
+#I "../../src/bin/Release/netstandard2.0"
 #r "Fable.Elmish.Browser.dll"
 open Elmish
 
@@ -11,7 +9,8 @@ open Elmish
 Routing and navigation for browser apps
 =======
 
-This library helps you turn URLs into nicely structured data, handle browser address change events and manipulate browser history directly.
+This library builds on [elmish-urlParser](https://elmish.github.io/urlParser) to 
+handle browser address changes and manipulate browser history directly.
 
 
 ## Installation
