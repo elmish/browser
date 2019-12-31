@@ -357,7 +357,9 @@ path entirely.
 *)
 let parseHash (parser: Parser<_,_>) (location: Location) =
     let hash, search =
-        let hash = location.hash.Substring 1
+        let hash =
+            if location.hash.Length > 1 then location.hash.Substring 1
+            else ""
         if hash.Contains("?") then
             let h = hash.Substring(0, hash.IndexOf("?"))
             h, hash.Substring(h.Length)

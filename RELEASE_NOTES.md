@@ -1,3 +1,7 @@
+### 3.0.3
+
+* Fix #30
+
 ### 3.0.2
 
 * Use uriDecodeComponent by Alfonso
