@@ -337,10 +337,12 @@ let internal toKeyValuePair (segment: string) =
 
 
 let internal parseParams (querystring: string) =
-    querystring.Substring(1).Split('&')
-    |> Seq.map toKeyValuePair
-    |> Seq.choose id
-    |> Map.ofSeq
+    if querystring.Length > 1 then
+        querystring.Substring(1).Split('&')
+        |> Seq.map toKeyValuePair
+        |> Seq.choose id
+        |> Map.ofSeq
+    else Map.empty
 
 open Browser.Types
 
