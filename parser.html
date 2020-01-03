@@ -524,6 +524,8 @@ should appear first.</p>
 <span class="l">49: </span>
 <span class="l">50: </span>
 <span class="l">51: </span>
+<span class="l">52: </span>
+<span class="l">53: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">intParam</span> <span class="id">name</span> <span class="o">=</span>
     <span class="id">customParam</span> <span class="id">name</span> <span class="id">intParamHelp</span>
@@ -570,10 +572,12 @@ should appear first.</p>
 
 
 <span class="k">let</span> <span class="k">internal</span> <span class="id">parseParams</span> <span class="pn">(</span><span class="id">querystring</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs1', 81)" onmouseover="showTip(event, 'fs1', 81)" class="id">string</span><span class="pn">)</span> <span class="o">=</span>
-    <span class="id">querystring</span><span class="pn">.</span><span class="id">Substring</span><span class="pn">(</span><span class="n">1</span><span class="pn">)</span><span class="pn">.</span><span class="id">Split</span><span class="pn">(</span><span class="s">&#39;&amp;&#39;</span><span class="pn">)</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs27', 82)" onmouseover="showTip(event, 'fs27', 82)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 83)" onmouseover="showTip(event, 'fs28', 83)" class="id">map</span> <span class="id">toKeyValuePair</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs27', 84)" onmouseover="showTip(event, 'fs27', 84)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs29', 85)" onmouseover="showTip(event, 'fs29', 85)" class="id">choose</span> <span onmouseout="hideTip(event, 'fs17', 86)" onmouseover="showTip(event, 'fs17', 86)" class="id">id</span>
-    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs3', 87)" onmouseover="showTip(event, 'fs3', 87)" class="id">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs30', 88)" onmouseover="showTip(event, 'fs30', 88)" class="id">ofSeq</span>
+    <span class="k">if</span> <span class="id">querystring</span><span class="pn">.</span><span class="id">Length</span> <span class="pn">&gt;</span> <span class="n">1</span> <span class="k">then</span>
+        <span class="id">querystring</span><span class="pn">.</span><span class="id">Substring</span><span class="pn">(</span><span class="n">1</span><span class="pn">)</span><span class="pn">.</span><span class="id">Split</span><span class="pn">(</span><span class="s">&#39;&amp;&#39;</span><span class="pn">)</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs27', 82)" onmouseover="showTip(event, 'fs27', 82)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs28', 83)" onmouseover="showTip(event, 'fs28', 83)" class="id">map</span> <span class="id">toKeyValuePair</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs27', 84)" onmouseover="showTip(event, 'fs27', 84)" class="id">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs29', 85)" onmouseover="showTip(event, 'fs29', 85)" class="id">choose</span> <span onmouseout="hideTip(event, 'fs17', 86)" onmouseover="showTip(event, 'fs17', 86)" class="id">id</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs3', 87)" onmouseover="showTip(event, 'fs3', 87)" class="id">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs30', 88)" onmouseover="showTip(event, 'fs30', 88)" class="id">ofSeq</span>
+    <span class="k">else</span> <span onmouseout="hideTip(event, 'fs3', 89)" onmouseover="showTip(event, 'fs3', 89)" class="id">Map</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs31', 90)" onmouseover="showTip(event, 'fs31', 90)" class="id">empty</span>
 
 <span class="k">open</span> <span class="id">Browser</span><span class="pn">.</span><span class="id">Types</span>
 </code></pre></td>
@@ -606,17 +610,17 @@ path entirely.</p>
 <span class="l">12: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span class="id">parseHash</span> <span class="pn">(</span><span class="id">parser</span><span class="pn">:</span> <span class="id">Parser</span><span class="pn">&lt;</span><span class="id">_</span><span class="pn">,</span><span class="id">_</span><span class="pn">&gt;</span><span class="pn">)</span> <span class="pn">(</span><span class="id">location</span><span class="pn">:</span> <span class="id">Location</span><span class="pn">)</span> <span class="o">=</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 89)" onmouseover="showTip(event, 'fs31', 89)" class="id">hash</span><span class="pn">,</span> <span class="id">search</span> <span class="o">=</span>
-        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs31', 90)" onmouseover="showTip(event, 'fs31', 90)" class="id">hash</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 91)" onmouseover="showTip(event, 'fs32', 91)" class="id">hash</span><span class="pn">,</span> <span class="id">search</span> <span class="o">=</span>
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 92)" onmouseover="showTip(event, 'fs32', 92)" class="id">hash</span> <span class="o">=</span>
             <span class="k">if</span> <span class="id">location</span><span class="pn">.</span><span class="id">hash</span><span class="pn">.</span><span class="id">Length</span> <span class="pn">&gt;</span> <span class="n">1</span> <span class="k">then</span> <span class="id">location</span><span class="pn">.</span><span class="id">hash</span><span class="pn">.</span><span class="id">Substring</span> <span class="n">1</span>
             <span class="k">else</span> <span class="s">&quot;&quot;</span>
-        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs31', 91)" onmouseover="showTip(event, 'fs31', 91)" class="id">hash</span><span class="pn">.</span><span class="id">Contains</span><span class="pn">(</span><span class="s">&quot;?&quot;</span><span class="pn">)</span> <span class="k">then</span>
-            <span class="k">let</span> <span class="id">h</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs31', 92)" onmouseover="showTip(event, 'fs31', 92)" class="id">hash</span><span class="pn">.</span><span class="id">Substring</span><span class="pn">(</span><span class="n">0</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs31', 93)" onmouseover="showTip(event, 'fs31', 93)" class="id">hash</span><span class="pn">.</span><span class="id">IndexOf</span><span class="pn">(</span><span class="s">&quot;?&quot;</span><span class="pn">)</span><span class="pn">)</span>
-            <span class="id">h</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs31', 94)" onmouseover="showTip(event, 'fs31', 94)" class="id">hash</span><span class="pn">.</span><span class="id">Substring</span><span class="pn">(</span><span class="id">h</span><span class="pn">.</span><span class="id">Length</span><span class="pn">)</span>
+        <span class="k">if</span> <span onmouseout="hideTip(event, 'fs32', 93)" onmouseover="showTip(event, 'fs32', 93)" class="id">hash</span><span class="pn">.</span><span class="id">Contains</span><span class="pn">(</span><span class="s">&quot;?&quot;</span><span class="pn">)</span> <span class="k">then</span>
+            <span class="k">let</span> <span class="id">h</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs32', 94)" onmouseover="showTip(event, 'fs32', 94)" class="id">hash</span><span class="pn">.</span><span class="id">Substring</span><span class="pn">(</span><span class="n">0</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs32', 95)" onmouseover="showTip(event, 'fs32', 95)" class="id">hash</span><span class="pn">.</span><span class="id">IndexOf</span><span class="pn">(</span><span class="s">&quot;?&quot;</span><span class="pn">)</span><span class="pn">)</span>
+            <span class="id">h</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs32', 96)" onmouseover="showTip(event, 'fs32', 96)" class="id">hash</span><span class="pn">.</span><span class="id">Substring</span><span class="pn">(</span><span class="id">h</span><span class="pn">.</span><span class="id">Length</span><span class="pn">)</span>
         <span class="k">else</span>
-            <span onmouseout="hideTip(event, 'fs31', 95)" onmouseover="showTip(event, 'fs31', 95)" class="id">hash</span><span class="pn">,</span> <span class="s">&quot;?&quot;</span>
+            <span onmouseout="hideTip(event, 'fs32', 97)" onmouseover="showTip(event, 'fs32', 97)" class="id">hash</span><span class="pn">,</span> <span class="s">&quot;?&quot;</span>
 
-    <span class="id">parse</span> <span class="id">parser</span> <span onmouseout="hideTip(event, 'fs31', 96)" onmouseover="showTip(event, 'fs31', 96)" class="id">hash</span> <span class="pn">(</span><span class="id">parseParams</span> <span class="id">search</span><span class="pn">)</span>
+    <span class="id">parse</span> <span class="id">parser</span> <span onmouseout="hideTip(event, 'fs32', 98)" onmouseover="showTip(event, 'fs32', 98)" class="id">hash</span> <span class="pn">(</span><span class="id">parseParams</span> <span class="id">search</span><span class="pn">)</span>
 </code></pre></td>
 </tr>
 </table>
@@ -651,7 +655,8 @@ path entirely.</p>
 <div class="tip" id="fs28">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;</div>
 <div class="tip" id="fs29">val choose : chooser:(&#39;T -&gt; &#39;U option) -&gt; source:seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;</div>
 <div class="tip" id="fs30">val ofSeq : elements:seq&lt;&#39;Key * &#39;T&gt; -&gt; Map&lt;&#39;Key,&#39;T&gt; (requires comparison)</div>
-<div class="tip" id="fs31">val hash : obj:&#39;T -&gt; int (requires equality)</div>
+<div class="tip" id="fs31">val empty&lt;&#39;Key,&#39;T (requires comparison)&gt; : Map&lt;&#39;Key,&#39;T&gt; (requires comparison)</div>
+<div class="tip" id="fs32">val hash : obj:&#39;T -&gt; int (requires equality)</div>
 
         </div>
         <div class="span3">
