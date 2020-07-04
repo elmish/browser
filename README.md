@@ -14,6 +14,9 @@ paket add Fable.Elmish.Browser
 
 ## Building
 
-.NET Core SDK and fake tool installed globablly are required.
+.NET Core SDK 3.1 is required.
 
-> `fake build`
+```
+> dotnet tool restore
+> dotnet fake build
+```
