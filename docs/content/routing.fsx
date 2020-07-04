@@ -41,7 +41,7 @@ Normally you want to put many of these parsers together to handle all possible r
 
 *)
 
-type Route = Blog of int | Search of string
+type Route = Blog of int | Search of string | Home
 
 let route =
     oneOf
@@ -107,10 +107,16 @@ let urlUpdate (result:Option<Route>) model =
 It looks like `update` function but instead of the message it handles the route changes.
 If the URL is valid, we just update our model or issue a command, otherwise we modify the URL to whatever makes sense.
 
+We will also need to modify our init function so that it takes the route as an argument; usually it defaults to `unit` if routing is not used.
+*)
+open Elmish
+
+let init (initialRoute:Option<Route>) =
+  ({ route = initialRoute |> Option.defaultValue Home; query = "" }, Cmd.Empty)
+
+(**
 Now we augument our program instance with Navigation capabilities, passing the parser and `urlUpdate`:
 *)
-
-open Elmish
 
 Program.mkProgram init update view
 |> Program.toNavigable (parseHash route) urlUpdate
