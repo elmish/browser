@@ -1,3 +1,7 @@
+### 4.0.0-beta-1
+* .NET SDK 5
+* Depend on the v4 beta
+
 ### 4.0.0-alpha-2
 
 * Depend on the split out UrlParser
