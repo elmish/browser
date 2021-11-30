@@ -1,3 +1,7 @@
+### 4.0.0-beta-3
+
+* Lower FSharp.Core requirement
+
 ### 4.0.0-beta-2
 
 * Fix #37: Remove the listener when the program terminate

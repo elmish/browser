@@ -13,6 +13,7 @@
     <PackageReference Include="Fable.Browser.Dom" Version="1.*" />
     <PackageReference Include="Fable.Elmish" Version="4.0.0-beta-1" />
     <PackageReference Include="Fable.Elmish.UrlParser" Version="1.0.0-alpha-1" />
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
   </ItemGroup>
 
 </Project>
