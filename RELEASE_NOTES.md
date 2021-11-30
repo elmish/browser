@@ -1,4 +1,9 @@
+### 4.0.0-beta-2
+
+* Fix #37: Remove the listener when the program terminate
+
 ### 4.0.0-beta-1
+
 * .NET SDK 5
 * Depend on the v4 beta
 
