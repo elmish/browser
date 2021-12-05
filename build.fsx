@@ -113,14 +113,10 @@ Target.create "WatchDocs" (fun _ ->
 // Release Scripts
 
 Target.create "ReleaseDocs" (fun _ ->
-    let tempDocsDir = "temp/gh-pages"
-    Shell.cleanDir tempDocsDir
-    Git.Repository.cloneSingleBranch "" gitRepo "gh-pages" tempDocsDir
+    let res = Shell.Exec("npm", "run docs:publish")
 
-    Shell.copyRecursive docs_out tempDocsDir true |> Trace.tracefn "%A"
-    Git.Staging.stageAll tempDocsDir
-    Git.Commit.exec tempDocsDir (sprintf "Update generated documentation for version %s" release.NugetVersion)
-    Git.Branches.push tempDocsDir
+    if res <> 0 then
+        failwithf "Failed to publish docs: %d" res
 )
 
 Target.create "Publish" ignore
