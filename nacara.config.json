@@ -1,0 +1,40 @@
+{
+    "siteMetadata": {
+        "title": "Elmish.Browser",
+        "url": "https://elmish.github.io",
+        "baseUrl": "/browser/",
+        "editUrl" : "https://github.com/elmish/browser/edit/master/docs",
+        "favIcon": "static/img/logo.png"
+    },
+    "navbar": {
+        "start": [
+            {
+                "pinned": true,
+                "label": "Tutorials",
+                "url": "/browser/tutorials/routing.html"
+            }
+        ],
+        "end": [
+            {
+                "url": "https://github.com/elmish/browser",
+                "icon": "fab fa-2x fa-github",
+                "label": "GitHub"
+            }
+        ]
+    },
+    "remarkPlugins": [
+        {
+            "resolve": "gatsby-remark-vscode",
+            "property": "remarkPlugin",
+            "options": {
+                "theme": "Atom One Light",
+                "extensions": [
+                    "vscode-theme-onelight"
+                ]
+            }
+        }
+    ],
+    "layouts": [
+        "nacara-layout-standard"
+    ]
+}

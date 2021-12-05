@@ -34,3 +34,6 @@ Directory.Build.props
 temp
 docs/outputpaket-files
 paket-files
+
+.nacara
+docs_deploy/
