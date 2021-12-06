@@ -3,7 +3,7 @@
         "title": "Elmish.Browser",
         "url": "https://elmish.github.io",
         "baseUrl": "/browser/",
-        "editUrl" : "https://github.com/elmish/browser/edit/master/docs",
+        "editUrl" : "https://github.com/elmish/browser/edit/v4.x/docs",
         "favIcon": "static/img/logo.png"
     },
     "navbar": {
