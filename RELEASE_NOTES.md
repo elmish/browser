@@ -1,5 +1,5 @@
 ### 4.0.0-beta-4
-* Update tl .NET 6 SDK, update UrlParser reference
+* Update to .NET 6 SDK, update UrlParser reference
 
 ### 4.0.0-beta-3
 
