@@ -127,11 +127,8 @@ Target.create "Publish" ignore
   ==> "Restore"
   ==> "Build"
   ==> "Package"
-//   ==> "GenerateDocs"
   ==> "PublishNuget"
-  ==> "ReleaseDocs"
   ==> "Publish"
-
 
 // start build
 Target.runOrDefault "Build"
