@@ -1,0 +1,5 @@
+#I "../src/bin/Release/netstandard2.0"
+#r "Fable.Elmish.Browser.dll"
+#r "nuget: Fable.Elmish, 4.0.0-beta-3"
+#r "nuget: Fable.Elmish.UrlParser, 1.0.0-alpha-1"
+#r "nuget: Fable.Browser.Dom"
