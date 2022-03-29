@@ -41,7 +41,7 @@ Program.mkProgram init update view
 |> Program.run
 
 (**
-For more information see the [routing tutorial](routing.html).
+For more information see the [routing tutorial](tutorials/routing.html).
 
 ### Navigation
 Manipulate the browser's navigation and history.
