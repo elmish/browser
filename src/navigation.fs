@@ -51,7 +51,7 @@ Treat user's program as a child component, by wrapping it and handling navigatio
 module Program =
 
     module Internal =
-        let mutable private onChangeRef : obj -> obj =
+        let mutable private onChangeRef : Event -> unit =
             fun _ ->
                 failwith "`onChangeRef` has not been initialized.\nPlease make sure you used Elmish.Navigation.Program.Internal.subscribe"
 
@@ -63,18 +63,17 @@ module Program =
                 | _ ->
                     lastLocation <- Some window.location.href
                     Change window.location |> dispatch
-                |> box
 
             onChangeRef <- onChange
 
-            window.addEventListener("popstate", unbox onChangeRef)
-            window.addEventListener("hashchange", unbox onChangeRef)
-            window.addEventListener(Navigation.NavigatedEvent, unbox onChangeRef)
+            window.addEventListener("popstate", onChangeRef)
+            window.addEventListener("hashchange", onChangeRef)
+            window.addEventListener(Navigation.NavigatedEvent, onChangeRef)
 
         let unsubscribe () =
-            window.removeEventListener("popstate", unbox onChangeRef)
-            window.removeEventListener("hashchange", unbox onChangeRef)
-            window.removeEventListener(Navigation.NavigatedEvent, unbox onChangeRef)
+            window.removeEventListener("popstate", onChangeRef)
+            window.removeEventListener("hashchange", onChangeRef)
+            window.removeEventListener(Navigation.NavigatedEvent, onChangeRef)
 
         let toNavigableWith (parser : Parser<'a>)
                             (urlUpdate : 'a->'model->('model * Cmd<'msg>))
