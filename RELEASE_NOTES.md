@@ -1,3 +1,8 @@
+## 4.0.0-beta-5
+
+* Release `Browser.console` logger impl, thanks Alfonso and Alberto De Pena
+* Fix UrlParser for [#50](https://github.com/elmish/browser/issues/50)
+
 ## 4.0.0-beta-4
 
 * Update to .NET 6 SDK, update UrlParser reference

@@ -57,7 +57,7 @@ let release = ReleaseNotes.load "RELEASE_NOTES.md"
 Target.create "Meta" (fun _ ->
     [ "<Project xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">"
       "<ItemGroup>"
-      "<None Include=\"../docs/files/img/logo.png\" Pack=\"true\" PackagePath=\"\\\"/>"
+      "<None Include=\"../docs/static/img/logo.png\" Pack=\"true\" PackagePath=\"\\\"/>"
       "<PackageReference Include=\"Microsoft.SourceLink.GitHub\" Version=\"1.0.0\" PrivateAssets=\"All\"/>"
       "</ItemGroup>"
       "<PropertyGroup>"
@@ -66,7 +66,7 @@ Target.create "Meta" (fun _ ->
       "<AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>"
       sprintf "<PackageProjectUrl>http://%s.github.io/%s</PackageProjectUrl>" gitOwner gitName
       "<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>"
-      "<PackageIconUrl>https://raw.githubusercontent.com/elmish/browser/master/docs/files/img/logo.png</PackageIconUrl>"
+      "<PackageIconUrl>https://raw.githubusercontent.com/elmish/browser/master/docs/static/img/logo.png</PackageIconUrl>"
       "<PackageIcon>logo.png</PackageIcon>"
       sprintf "<RepositoryUrl>%s/%s</RepositoryUrl>" gitHome gitName
       "<PackageTags>fable;elm;fsharp</PackageTags>"
