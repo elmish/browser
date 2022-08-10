@@ -1,3 +1,6 @@
+## 4.0.0-beta-6
+* Bump Fable.Browser.Dom dependency to 2.*
+
 ## 4.0.0-beta-5
 
 * Release `Browser.console` logger impl, thanks Alfonso and Alberto De Pena
