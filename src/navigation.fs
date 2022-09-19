@@ -86,11 +86,17 @@ module Program =
             window.addEventListener("popstate", onChangeRef.Value)
             window.addEventListener("hashchange", onChangeRef.Value)
             window.addEventListener(Navigation.NavigatedEvent, onChangeRef.Value)
+            { new System.IDisposable with
+                member _.Dispose () = 
+                    window.removeEventListener("popstate", onChangeRef.Value)
+                    window.removeEventListener("hashchange", onChangeRef.Value)
+                    window.removeEventListener(Navigation.NavigatedEvent, onChangeRef.Value)
+            }
 
         let subs userSubscribe model =
-            Cmd.batch
-                [ [ onLocationChange ]
-                  userSubscribe model |> Cmd.map UserMsg ]
+            Sub.batch
+                [ [ ["onLocationChange"], onLocationChange ]
+                  userSubscribe model |> Sub.map "user" UserMsg ]
 
         let init userInit () =
             userInit (parser window.location) |> map

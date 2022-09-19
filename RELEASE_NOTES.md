@@ -1,3 +1,6 @@
+## 4.0.0-beta-7
+* initial support for mutable subs
+
 ## 4.0.0-beta-6
 * Bump Fable.Browser.Dom dependency to 2.*
 
