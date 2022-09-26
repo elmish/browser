@@ -1,3 +1,6 @@
+## 4.0.0-beta-8
+* Lower FSharp.Core requirement
+
 ## 4.0.0-beta-7
 * initial support for mutable subs
 
