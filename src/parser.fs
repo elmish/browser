@@ -14,7 +14,16 @@ Parse based on `location.pathname` and `location.search`. This parser
 ignores the hash entirely.
 *)
 let parsePath (parser: Parser<_,_>) (location: Location) =
-    parse parser location.pathname (parseParams location.search)
+    let path, search =
+        let path =
+                if location.pathname.Length > 1 then location.pathname.Substring 1
+                else ""
+        if path.Contains("?") then
+                let p = path.Substring(0, path.IndexOf("?"))
+                p, path.Substring(p.Length)
+            else
+                path, "?"
+    parse parser path (parseParams search)
 
 (** Parse based on `location.hash`. This parser ignores the normal
 path entirely.
