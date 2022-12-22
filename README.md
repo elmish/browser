@@ -14,6 +14,6 @@ paket add Fable.Elmish.Browser
 
 ## Building
 
-.NET Core SDK and `fake` dotnet tool are required.
+.NET Core SDK 6.
 
-> `fake build`
+> `dotnet fsi build.fsx`

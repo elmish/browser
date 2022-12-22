@@ -1,3 +1,7 @@
+## 4.0.0
+* Release `Browser.console` logger impl, thanks Alfonso and Alberto De Pena
+* Breaking: support for v4 elmish
+
 ## 4.0.0-beta-8
 * Lower FSharp.Core requirement
 

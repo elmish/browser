@@ -13,8 +13,8 @@
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="4.7.*" />
     <PackageReference Include="Fable.Browser.Dom" Version="2.*" />
-    <PackageReference Include="Fable.Elmish" Version="4.0.0-beta-*" />
-    <PackageReference Include="Fable.Elmish.UrlParser" Version="1.0.0-beta-*" />
+    <PackageReference Include="Fable.Elmish" Version="4.*" />
+    <PackageReference Include="Fable.Elmish.UrlParser" Version="1.*" />
   </ItemGroup>
 
 </Project>
