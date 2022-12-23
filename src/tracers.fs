@@ -38,5 +38,5 @@ let getMsgNameAndFields (t: Type) (x: 'Msg) : string * obj =
 /// Use it when initializing your Elmish app like this
 /// |> Program.withTrace Tracers.console
 let inline console (msg: 'Msg) (_state: 'State) (_subId: SubId list) =
-    let msg, fields = getMsgNameAndFields typedefof<'Msg> msg
+    let msg, fields = getMsgNameAndFields typeof<'Msg> msg
     JS.console.log (msg, fields)
