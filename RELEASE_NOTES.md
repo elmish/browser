@@ -1,3 +1,6 @@
+## 4.0.1
+* Add state and subIds to console logs, #60
+
 ## 4.0.0
 * Release `Browser.console` logger impl, thanks Alfonso and Alberto De Pena
 * Breaking: support for v4 elmish
