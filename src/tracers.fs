@@ -39,4 +39,7 @@ let getMsgNameAndFields (t: Type) (x: 'Msg) : string * obj =
 /// |> Program.withTrace Tracers.console
 let inline console (msg: 'Msg) (state: 'State) (subId: SubId list) =
     let msg, fields = getMsgNameAndFields typeof<'Msg> msg
-    JS.console.log (msg, fields, state, subId)
+    JS.console.log (msg, fields)
+    JS.console.log ("State:", state)
+    if subId |> List.isEmpty |> not then
+        JS.console.log ("Subscriptions:", subId)
