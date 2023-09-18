@@ -1,3 +1,6 @@
+## 4.0.2
+* Log separately, only log subs if there are any, #65
+
 ## 4.0.1
 * Add state and subIds to console logs, #60
 
