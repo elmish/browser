@@ -20,14 +20,16 @@ let parsePath (parser: Parser<_,_>) (location: Location) =
 path entirely.
 *)
 let parseHash (parser: Parser<_,_>) (location: Location) =
-    let hash, search =
+    let hash, queryParams =
         let hash =
             if location.hash.Length > 1 then location.hash.Substring 1
             else ""
-        if hash.Contains("?") then
-            let h = hash.Substring(0, hash.IndexOf("?"))
-            h, hash.Substring(h.Length)
+        let pos = hash.IndexOf "?"
+        if pos >= 0 then
+            let path = hash.Substring(0,pos)
+            let search = hash.Substring(pos+1)
+            path, parseParams search
         else
-            hash, "?"
+            hash, Map.empty
 
-    parse parser hash (parseParams search)
+    parse parser hash queryParams

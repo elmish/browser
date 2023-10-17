@@ -1,3 +1,6 @@
+## 4.0.3
+* Small optimization in param parsing
+
 ## 4.0.2
 * Log separately, only log subs if there are any, #65
 
