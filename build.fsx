@@ -26,7 +26,7 @@ let projects  =
     !! "src/**.fsproj"
     ++ "netstandard/**.fsproj"
 
-System.Environment.GetCommandLineArgs() 
+System.Environment.GetCommandLineArgs()
 |> Array.skip 2 // fsi.exe; build.fsx
 |> Array.toList
 |> Context.FakeExecutionContext.Create false __SOURCE_FILE__
@@ -128,9 +128,10 @@ Target.create "Publish" ignore
   ==> "Meta"
   ==> "Restore"
   ==> "Build"
+  ==> "Test"
   ==> "Package"
   ==> "PublishNuget"
   ==> "Publish"
 
 // start build
-Target.runOrDefault "Build"
+Target.runOrDefault "Test"
