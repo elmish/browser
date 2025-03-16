@@ -1,3 +1,6 @@
+## 4.1.0
+* Fix support for `Option`s in Elmish.Tracers.console
+
 ## 4.0.3
 * Small optimization in param parsing
 

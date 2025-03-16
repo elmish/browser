@@ -6,6 +6,7 @@
     <ProjectReference Include="../src/Fable.Elmish.Browser.fsproj" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TracersTests.fs" />
     <Compile Include="ParserTests.fs" />
   </ItemGroup>
   <ItemGroup>
