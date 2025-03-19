@@ -19,7 +19,9 @@ type RootMsg =
 
 let getTraceForMsg (msg: 'Msg) =
     let actualName, actualValues = Tracers.getMsgNameAndFields typeof<'Msg> msg
-    let actualValues = actualValues :?> (string * obj) list
+    let actualValues = 
+        actualValues :?> (string * obj) array
+        |> Array.toList // So that we can compare the actual vs expected by value in the tests.
     actualName, actualValues
 
 [<Test>]

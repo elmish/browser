@@ -70,7 +70,6 @@ let getMsgNameAndFields (t: Type) (x: 'Msg) : string * obj =
                 #if FABLE_COMPILER
                 |> JsInterop.createObj
                 #else
-                |> List.ofArray // So that we can compare the result by value in the unit tests...
                 |> box
                 #endif
 
