@@ -22,18 +22,6 @@
             }
         ]
     },
-    "remarkPlugins": [
-        {
-            "resolve": "gatsby-remark-vscode",
-            "property": "remarkPlugin",
-            "options": {
-                "theme": "Atom One Light",
-                "extensions": [
-                    "vscode-theme-onelight"
-                ]
-            }
-        }
-    ],
     "layouts": [
         "nacara-layout-standard"
     ]
